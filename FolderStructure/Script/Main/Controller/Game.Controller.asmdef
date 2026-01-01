@@ -1,0 +1,20 @@
+{
+  "name": "Game.Controller",
+  "rootNamespace": "Game.Controller",
+  "references": [
+    "Rino.GameFramework.Core",
+    "Game.Model",
+    "Game.Repository",
+    "Game.Event",
+    "Game.Utility"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
