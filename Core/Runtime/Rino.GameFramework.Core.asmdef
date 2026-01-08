@@ -1,7 +1,9 @@
 {
   "name": "Rino.GameFramework.Core",
   "rootNamespace": "Rino.GameFramework.Core",
-  "references": [],
+  "references": [
+    "Zenject"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
@@ -9,6 +11,12 @@
   "precompiledReferences": [],
   "autoReferenced": true,
   "defineConstraints": [],
-  "versionDefines": [],
+  "versionDefines": [
+    {
+      "name": "com.svermeulen.extenject",
+      "expression": "",
+      "define": "ZENJECT"
+    }
+  ],
   "noEngineReferences": false
 }
