@@ -15,7 +15,10 @@ namespace Rino.GameFramework.Core.ModuleInstaller
     public class ModuleInstaller : EditorWindow
     {
         private const string ManifestUrl = "https://raw.githubusercontent.com/rino3390/RinoGameFramework/main/ModuleTemplates/modules.json";
-        private const string InstallBasePath = "Assets/Script/Domains";
+        private const string FolderStructurePrefix = "FolderStructure/";
+        private const string ModuleTemplatesPrefix = "ModuleTemplates/";
+        private const string DomainsPath = "Script/Domains";
+        private const string ScriptPath = "Script";
 
         private ModuleManifest manifest;
         private List<ModuleRuntimeData> modules = new();
@@ -110,7 +113,7 @@ namespace Rino.GameFramework.Core.ModuleInstaller
             if (module.Info.dependencies.Count > 0)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("依賴:", EditorStyles.miniLabel, GUILayout.Width(35));
+                EditorGUILayout.LabelField("依賴：", GUILayout.Width(40));
                 foreach (var dep in module.Info.dependencies)
                 {
                     var isSatisfied = !module.MissingDependencies.Contains(dep);
@@ -195,9 +198,9 @@ namespace Rino.GameFramework.Core.ModuleInstaller
         private void DrawDependencyStatus(string dependencyName, bool isSatisfied)
         {
             var originalColor = GUI.contentColor;
-            var symbol = isSatisfied ? "\u2713" : "\u2717";
+            var symbol = isSatisfied ? "✓" : "✗";
             GUI.contentColor = isSatisfied ? new Color(0.3f, 0.8f, 0.3f) : new Color(0.9f, 0.3f, 0.3f);
-            GUILayout.Label($"{symbol} {dependencyName}", EditorStyles.miniLabel);
+            GUILayout.Label($"{symbol} {dependencyName}", EditorStyles.label);
             GUI.contentColor = originalColor;
         }
 
@@ -306,13 +309,29 @@ namespace Rino.GameFramework.Core.ModuleInstaller
 
         private string GetLocalFilePath(string relativePath)
         {
-            // 從 ModuleTemplates/ModuleName/file.cs 取得 ModuleName/file.cs
-            var parts = relativePath.Split('/');
-            if (parts.Length < 2) return Path.Combine(InstallBasePath, relativePath);
+            // FolderStructure 檔案：移除前綴，安裝到 Assets/
+            if (relativePath.StartsWith(FolderStructurePrefix))
+            {
+                var localPath = relativePath.Substring(FolderStructurePrefix.Length);
+                return Path.Combine(Application.dataPath, localPath).Replace("\\", "/");
+            }
 
-            var domainPath = string.Join("/", parts);
-            return Path.Combine(Application.dataPath, InstallBasePath.Replace("Assets/", ""), domainPath)
-                .Replace("\\", "/");
+            // ModuleTemplates 檔案：移除前綴，根據 FolderStructure 是否存在決定路徑
+            if (relativePath.StartsWith(ModuleTemplatesPrefix))
+            {
+                var modulePath = relativePath.Substring(ModuleTemplatesPrefix.Length);
+                var basePath = IsFolderStructureInstalled() ? DomainsPath : ScriptPath;
+                return Path.Combine(Application.dataPath, basePath, modulePath).Replace("\\", "/");
+            }
+
+            // 其他情況：直接安裝到 Assets/
+            return Path.Combine(Application.dataPath, relativePath).Replace("\\", "/");
+        }
+
+        private bool IsFolderStructureInstalled()
+        {
+            var domainsPath = Path.Combine(Application.dataPath, DomainsPath);
+            return Directory.Exists(domainsPath);
         }
 
         private string GetRemoteFileUrl(string relativePath)
