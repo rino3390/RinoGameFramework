@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using Rino.GameFramework.Core.GameManagerBase.EditorBase;
 
 namespace Rino.GameFramework.Sample.GameManager.Editor
@@ -13,4 +12,3 @@ namespace Rino.GameFramework.Sample.GameManager.Editor
         protected override string DataTypeLabel => "測試資料";
     }
 }
-#endif
