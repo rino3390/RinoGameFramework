@@ -1,0 +1,517 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Networking;
+
+namespace Rino.GameFramework.Core.ModuleInstaller
+{
+    /// <summary>
+    /// 模組安裝器 Editor Window
+    /// 提供從 GitHub 下載並安裝可選模組的功能
+    /// </summary>
+    public class ModuleInstaller : EditorWindow
+    {
+        private const string DefaultManifestUrl = "https://raw.githubusercontent.com/rino3390/RinoGameFramework/main/ModuleTemplates/modules.json";
+        private const string InstallBasePath = "Assets/Script/Domains";
+        private const string SettingsKey = "ModuleInstaller_ManifestUrl";
+
+        private string manifestUrl;
+        private string installPath;
+        private ModuleManifest manifest;
+        private List<ModuleRuntimeData> modules = new();
+        private Vector2 scrollPosition;
+        private bool isLoading;
+        private string statusMessage;
+        private MessageType statusMessageType;
+
+        [MenuItem("Tools/Module Installer", priority = 100)]
+        public static void OpenWindow()
+        {
+            var window = GetWindow<ModuleInstaller>("Module Installer");
+            window.minSize = new Vector2(500, 400);
+            window.Show();
+        }
+
+        private void OnEnable()
+        {
+            manifestUrl = EditorPrefs.GetString(SettingsKey, DefaultManifestUrl);
+            installPath = InstallBasePath;
+            RefreshModuleList();
+        }
+
+        private void OnGUI()
+        {
+            DrawHeader();
+            DrawSettings();
+            EditorGUILayout.Space(10);
+
+            if (isLoading)
+            {
+                EditorGUILayout.HelpBox("載入中...", MessageType.Info);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(statusMessage))
+            {
+                EditorGUILayout.HelpBox(statusMessage, statusMessageType);
+            }
+
+            DrawModuleList();
+        }
+
+        private void DrawHeader()
+        {
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("Module Installer", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("從 GitHub 安裝可選模組到專案中", EditorStyles.miniLabel);
+            EditorGUILayout.Space(5);
+        }
+
+        private void DrawSettings()
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            EditorGUILayout.LabelField("設定", EditorStyles.boldLabel);
+
+            EditorGUI.BeginChangeCheck();
+            manifestUrl = EditorGUILayout.TextField("Manifest URL", manifestUrl);
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorPrefs.SetString(SettingsKey, manifestUrl);
+            }
+
+            installPath = EditorGUILayout.TextField("安裝路徑", installPath);
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("重新整理", GUILayout.Width(100)))
+            {
+                RefreshModuleList();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void DrawModuleList()
+        {
+            EditorGUILayout.LabelField($"可用模組 ({modules.Count})", EditorStyles.boldLabel);
+
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
+            foreach (var module in modules)
+            {
+                DrawModuleItem(module);
+            }
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawModuleItem(ModuleRuntimeData module)
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            // 標題列
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(module.Info.name, EditorStyles.boldLabel);
+            DrawStatusBadge(module.Status);
+            EditorGUILayout.EndHorizontal();
+
+            // 版本與說明
+            EditorGUILayout.LabelField($"版本: {module.Info.version} | ID: {module.Info.id}", EditorStyles.miniLabel);
+            EditorGUILayout.LabelField(module.Info.description, EditorStyles.wordWrappedLabel);
+
+            // 依賴資訊
+            if (module.Info.dependencies.Count > 0)
+            {
+                var depsText = string.Join(", ", module.Info.dependencies);
+                EditorGUILayout.LabelField($"依賴: {depsText}", EditorStyles.miniLabel);
+            }
+
+            // 未滿足的依賴警告
+            if (module.HasUnmetDependencies)
+            {
+                var missingDeps = string.Join(", ", module.MissingDependencies);
+                EditorGUILayout.HelpBox($"缺少依賴: {missingDeps}", MessageType.Warning);
+            }
+
+            // 部分安裝警告
+            if (module.Status == ModuleInstallStatus.PartiallyInstalled)
+            {
+                var missingFiles = string.Join("\n", module.MissingFiles);
+                EditorGUILayout.HelpBox($"部分檔案遺失:\n{missingFiles}", MessageType.Warning);
+            }
+
+            // 操作按鈕
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            GUI.enabled = !isLoading;
+
+            switch (module.Status)
+            {
+                case ModuleInstallStatus.NotInstalled:
+                    GUI.enabled = !module.HasUnmetDependencies && !isLoading;
+                    if (GUILayout.Button("安裝", GUILayout.Width(80)))
+                    {
+                        InstallModule(module);
+                    }
+                    GUI.enabled = !isLoading;
+                    break;
+
+                case ModuleInstallStatus.Installed:
+                    if (GUILayout.Button("移除", GUILayout.Width(80)))
+                    {
+                        RemoveModule(module);
+                    }
+                    break;
+
+                case ModuleInstallStatus.PartiallyInstalled:
+                    if (GUILayout.Button("修復", GUILayout.Width(80)))
+                    {
+                        RepairModule(module);
+                    }
+                    if (GUILayout.Button("移除", GUILayout.Width(80)))
+                    {
+                        RemoveModule(module);
+                    }
+                    break;
+            }
+
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(5);
+        }
+
+        private void DrawStatusBadge(ModuleInstallStatus status)
+        {
+            var originalColor = GUI.backgroundColor;
+
+            switch (status)
+            {
+                case ModuleInstallStatus.Installed:
+                    GUI.backgroundColor = new Color(0.3f, 0.8f, 0.3f);
+                    GUILayout.Label("已安裝", EditorStyles.miniButton, GUILayout.Width(60));
+                    break;
+                case ModuleInstallStatus.PartiallyInstalled:
+                    GUI.backgroundColor = new Color(0.9f, 0.7f, 0.2f);
+                    GUILayout.Label("部分安裝", EditorStyles.miniButton, GUILayout.Width(60));
+                    break;
+                case ModuleInstallStatus.NotInstalled:
+                    GUI.backgroundColor = new Color(0.6f, 0.6f, 0.6f);
+                    GUILayout.Label("未安裝", EditorStyles.miniButton, GUILayout.Width(60));
+                    break;
+            }
+
+            GUI.backgroundColor = originalColor;
+        }
+
+        private void RefreshModuleList()
+        {
+            isLoading = true;
+            statusMessage = null;
+            FetchManifest();
+        }
+
+        private void FetchManifest()
+        {
+            var request = UnityWebRequest.Get(manifestUrl);
+            var operation = request.SendWebRequest();
+
+            EditorApplication.update += CheckFetchComplete;
+
+            void CheckFetchComplete()
+            {
+                if (!operation.isDone) return;
+
+                EditorApplication.update -= CheckFetchComplete;
+
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    statusMessage = $"無法載入模組清單: {request.error}";
+                    statusMessageType = MessageType.Error;
+                    isLoading = false;
+                    Repaint();
+                    return;
+                }
+
+                try
+                {
+                    manifest = JsonUtility.FromJson<ModuleManifest>(request.downloadHandler.text);
+                    modules = manifest.modules.Select(m => new ModuleRuntimeData(m)).ToList();
+                    CheckAllModuleStatus();
+                    statusMessage = $"已載入 {modules.Count} 個模組";
+                    statusMessageType = MessageType.Info;
+                }
+                catch (Exception e)
+                {
+                    statusMessage = $"解析模組清單失敗: {e.Message}";
+                    statusMessageType = MessageType.Error;
+                }
+
+                isLoading = false;
+                Repaint();
+            }
+        }
+
+        private void CheckAllModuleStatus()
+        {
+            var installedModuleIds = new HashSet<string>();
+
+            foreach (var module in modules)
+            {
+                CheckModuleStatus(module);
+                if (module.Status == ModuleInstallStatus.Installed)
+                {
+                    installedModuleIds.Add(module.Info.id);
+                }
+            }
+
+            // 檢查依賴
+            foreach (var module in modules)
+            {
+                module.MissingDependencies.Clear();
+                foreach (var dep in module.Info.dependencies)
+                {
+                    if (!installedModuleIds.Contains(dep))
+                    {
+                        module.MissingDependencies.Add(dep);
+                    }
+                }
+            }
+        }
+
+        private void CheckModuleStatus(ModuleRuntimeData module)
+        {
+            module.MissingFiles.Clear();
+            module.InstalledFiles.Clear();
+
+            foreach (var file in module.Info.files)
+            {
+                var localPath = GetLocalFilePath(file);
+                if (File.Exists(localPath))
+                {
+                    module.InstalledFiles.Add(file);
+                }
+                else
+                {
+                    module.MissingFiles.Add(file);
+                }
+            }
+
+            if (module.InstalledFiles.Count == 0)
+            {
+                module.Status = ModuleInstallStatus.NotInstalled;
+            }
+            else if (module.MissingFiles.Count == 0)
+            {
+                module.Status = ModuleInstallStatus.Installed;
+            }
+            else
+            {
+                module.Status = ModuleInstallStatus.PartiallyInstalled;
+            }
+        }
+
+        private string GetLocalFilePath(string relativePath)
+        {
+            // 從 ModuleTemplates/ModuleName/file.cs 取得 ModuleName/file.cs
+            var parts = relativePath.Split('/');
+            if (parts.Length < 2) return Path.Combine(installPath, relativePath);
+
+            var domainPath = string.Join("/", parts);
+            return Path.Combine(Application.dataPath, installPath.Replace("Assets/", ""), domainPath)
+                .Replace("\\", "/");
+        }
+
+        private string GetRemoteFileUrl(string relativePath)
+        {
+            return manifest.baseUrl + relativePath;
+        }
+
+        private void InstallModule(ModuleRuntimeData module)
+        {
+            if (module.HasUnmetDependencies)
+            {
+                EditorUtility.DisplayDialog("無法安裝",
+                    $"此模組需要先安裝以下依賴：\n{string.Join("\n", module.MissingDependencies)}",
+                    "確定");
+                return;
+            }
+
+            isLoading = true;
+            statusMessage = $"正在安裝 {module.Info.name}...";
+            statusMessageType = MessageType.Info;
+            Repaint();
+
+            DownloadModuleFiles(module, module.Info.files);
+        }
+
+        private void RepairModule(ModuleRuntimeData module)
+        {
+            isLoading = true;
+            statusMessage = $"正在修復 {module.Info.name}...";
+            statusMessageType = MessageType.Info;
+            Repaint();
+
+            DownloadModuleFiles(module, module.MissingFiles);
+        }
+
+        private void DownloadModuleFiles(ModuleRuntimeData module, List<string> files)
+        {
+            var filesToDownload = new Queue<string>(files);
+            var failedFiles = new List<string>();
+
+            DownloadNextFile();
+
+            void DownloadNextFile()
+            {
+                if (filesToDownload.Count == 0)
+                {
+                    FinishDownload();
+                    return;
+                }
+
+                var file = filesToDownload.Dequeue();
+                var url = GetRemoteFileUrl(file);
+                var localPath = GetLocalFilePath(file);
+
+                var request = UnityWebRequest.Get(url);
+                var operation = request.SendWebRequest();
+
+                EditorApplication.update += CheckDownloadComplete;
+
+                void CheckDownloadComplete()
+                {
+                    if (!operation.isDone) return;
+
+                    EditorApplication.update -= CheckDownloadComplete;
+
+                    if (request.result != UnityWebRequest.Result.Success)
+                    {
+                        failedFiles.Add($"{file}: {request.error}");
+                    }
+                    else
+                    {
+                        SaveFile(localPath, request.downloadHandler.data);
+                    }
+
+                    DownloadNextFile();
+                }
+            }
+
+            void FinishDownload()
+            {
+                AssetDatabase.Refresh();
+                CheckModuleStatus(module);
+                CheckAllModuleStatus();
+
+                if (failedFiles.Count > 0)
+                {
+                    statusMessage = $"安裝 {module.Info.name} 時發生錯誤:\n{string.Join("\n", failedFiles)}";
+                    statusMessageType = MessageType.Error;
+                }
+                else
+                {
+                    statusMessage = $"{module.Info.name} 安裝完成";
+                    statusMessageType = MessageType.Info;
+                }
+
+                isLoading = false;
+                Repaint();
+            }
+        }
+
+        private void SaveFile(string path, byte[] data)
+        {
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            File.WriteAllBytes(path, data);
+        }
+
+        private void RemoveModule(ModuleRuntimeData module)
+        {
+            // 確認對話框
+            if (!EditorUtility.DisplayDialog("確認移除",
+                    $"確定要移除 {module.Info.name} 嗎？\n\n這將刪除以下檔案：\n{string.Join("\n", module.InstalledFiles)}",
+                    "移除", "取消"))
+            {
+                return;
+            }
+
+            // 檢查是否有其他模組依賴此模組
+            var dependentModules = modules
+                .Where(m => m.Status == ModuleInstallStatus.Installed &&
+                            m.Info.dependencies.Contains(module.Info.id))
+                .Select(m => m.Info.name)
+                .ToList();
+
+            if (dependentModules.Count > 0)
+            {
+                EditorUtility.DisplayDialog("無法移除",
+                    $"以下模組依賴 {module.Info.name}：\n{string.Join("\n", dependentModules)}\n\n請先移除這些模組。",
+                    "確定");
+                return;
+            }
+
+            // 刪除檔案
+            foreach (var file in module.InstalledFiles)
+            {
+                var localPath = GetLocalFilePath(file);
+                if (File.Exists(localPath))
+                {
+                    File.Delete(localPath);
+                    var metaPath = localPath + ".meta";
+                    if (File.Exists(metaPath))
+                    {
+                        File.Delete(metaPath);
+                    }
+                }
+            }
+
+            // 刪除空目錄
+            CleanupEmptyDirectories(module);
+
+            AssetDatabase.Refresh();
+            CheckModuleStatus(module);
+            CheckAllModuleStatus();
+
+            statusMessage = $"{module.Info.name} 已移除";
+            statusMessageType = MessageType.Info;
+            Repaint();
+        }
+
+        private void CleanupEmptyDirectories(ModuleRuntimeData module)
+        {
+            // 找出模組的根目錄（Domain 資料夾）
+            var directories = module.Info.files
+                .Select(f => Path.GetDirectoryName(GetLocalFilePath(f)))
+                .Where(d => !string.IsNullOrEmpty(d))
+                .Distinct()
+                .OrderByDescending(d => d.Length) // 從最深的目錄開始
+                .ToList();
+
+            foreach (var dir in directories)
+            {
+                if (Directory.Exists(dir) && !Directory.EnumerateFileSystemEntries(dir).Any())
+                {
+                    Directory.Delete(dir);
+                    var metaPath = dir + ".meta";
+                    if (File.Exists(metaPath))
+                    {
+                        File.Delete(metaPath);
+                    }
+                }
+            }
+        }
+    }
+}
