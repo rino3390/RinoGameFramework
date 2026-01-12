@@ -1,6 +1,6 @@
 {
     "name": "Rino.ModuleInstaller",
-    "rootNamespace": "Rino.GameFramework.Core.ModuleInstaller",
+    "rootNamespace": "Rino.GameFramework.ModuleInstaller",
     "references": [
         "Rino.RinoUtility.Editor"
     ],

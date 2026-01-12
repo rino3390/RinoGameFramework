@@ -1,8 +1,6 @@
-using Rino.GameFramework.Core.AttributeSystem.Controller;
-using Rino.GameFramework.Core.AttributeSystem.Repository;
 using Zenject;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Installer
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性系統的 Zenject Installer

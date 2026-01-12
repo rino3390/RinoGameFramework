@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Rino.GameFramework.Core.AttributeSystem.Model;
-using Rino.GameFramework.Core.DDDCore.Domain;
+using Rino.GameFramework.DDDCore;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Repository
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Repository 介面，擴展基本 Repository 功能

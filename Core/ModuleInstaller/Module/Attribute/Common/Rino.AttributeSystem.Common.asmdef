@@ -1,6 +1,6 @@
 {
     "name": "Rino.AttributeSystem.Common",
-    "rootNamespace": "Rino.GameFramework.Core.AttributeSystem.Common",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

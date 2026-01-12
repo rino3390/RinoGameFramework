@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.Core.AttributeSystem.Common;
-using Rino.GameFramework.Core.AttributeSystem.Model;
-using Rino.GameFramework.Core.AttributeSystem.Repository;
-using Rino.GameFramework.Core.RinoUtility.Misc;
+using Rino.GameFramework.RinoUtility;
 using UniRx;
-using Attribute = Rino.GameFramework.Core.AttributeSystem.Model.Attribute;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Controller
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Controller（資源型），管理屬性的建立、修改、關聯更新

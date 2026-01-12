@@ -1,8 +1,6 @@
 using NUnit.Framework;
-using Rino.GameFramework.Core.AttributeSystem.Common;
-using Rino.GameFramework.Core.AttributeSystem.Model;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Tests
+namespace Rino.GameFramework.AttributeSystem.Tests
 {
     [TestFixture]
     public class ModifierTests

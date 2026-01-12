@@ -1,6 +1,4 @@
-using Rino.GameFramework.Core.AttributeSystem.Common;
-
-namespace Rino.GameFramework.Core.AttributeSystem.Model
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 修改器，用於改變屬性值

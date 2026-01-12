@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Rino.GameFramework.Core.ModuleInstaller
+namespace Rino.GameFramework.ModuleInstaller
 {
     /// <summary>
     /// 模組安裝器 Editor Window

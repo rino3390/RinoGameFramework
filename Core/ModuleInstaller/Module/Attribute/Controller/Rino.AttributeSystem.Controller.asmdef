@@ -1,6 +1,6 @@
 {
     "name": "Rino.AttributeSystem.Controller",
-    "rootNamespace": "Rino.GameFramework.Core.AttributeSystem.Controller",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
         "Rino.DDDCore",
         "Rino.AttributeSystem.Common",

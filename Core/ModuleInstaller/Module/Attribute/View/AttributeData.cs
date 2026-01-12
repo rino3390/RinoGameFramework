@@ -1,8 +1,7 @@
-using Rino.GameFramework.Core.AttributeSystem.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Rino.GameFramework.Core.AttributeSystem.View
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性配置 ScriptableObject

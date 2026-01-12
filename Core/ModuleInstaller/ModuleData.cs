@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.Core.ModuleInstaller
+namespace Rino.GameFramework.ModuleInstaller
 {
     /// <summary>
     /// 模組安裝狀態

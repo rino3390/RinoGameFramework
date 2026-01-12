@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.Core.AttributeSystem.Common
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性變化資訊，用於協調型 Controller 訂閱

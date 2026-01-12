@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Rino.GameFramework.Core.DDDCore.Domain
+namespace Rino.GameFramework.DDDCore
 {
 	/// <summary>
 	///     Repository 實作，提供 Entity 的記憶體儲存

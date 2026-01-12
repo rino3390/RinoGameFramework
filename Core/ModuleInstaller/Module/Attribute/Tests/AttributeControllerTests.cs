@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-using Rino.GameFramework.Core.AttributeSystem.Common;
-using Rino.GameFramework.Core.AttributeSystem.Controller;
-using Rino.GameFramework.Core.AttributeSystem.Model;
-using Rino.GameFramework.Core.AttributeSystem.Repository;
 using UniRx;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Tests
+namespace Rino.GameFramework.AttributeSystem.Tests
 {
     [TestFixture]
     public class AttributeControllerTests

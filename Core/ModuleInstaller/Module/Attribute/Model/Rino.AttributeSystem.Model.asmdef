@@ -1,6 +1,6 @@
 {
     "name": "Rino.AttributeSystem.Model",
-    "rootNamespace": "Rino.GameFramework.Core.AttributeSystem.Model",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
         "Rino.DDDCore",
         "Rino.AttributeSystem.Common",

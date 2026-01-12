@@ -1,6 +1,6 @@
 {
     "name": "Rino.AttributeSystem.View",
-    "rootNamespace": "Rino.GameFramework.Core.AttributeSystem.View",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
         "Rino.AttributeSystem.Common"
     ],

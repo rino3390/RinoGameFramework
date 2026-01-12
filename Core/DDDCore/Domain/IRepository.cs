@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.Core.DDDCore.Domain
+namespace Rino.GameFramework.DDDCore
 {
     /// <summary>
     /// Repository 介面，定義 Entity 儲存庫的基本操作

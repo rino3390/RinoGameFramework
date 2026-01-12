@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Rino.GameFramework.Core.DDDCore.Event;
 
-namespace Rino.GameFramework.Core.DDDCore.Domain
+namespace Rino.GameFramework.DDDCore
 {
     /// <summary>
     /// Domain Entity 基礎類別，提供 DomainEvent 累積機制

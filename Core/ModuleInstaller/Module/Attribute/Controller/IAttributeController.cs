@@ -1,9 +1,6 @@
 using System;
-using Rino.GameFramework.Core.AttributeSystem.Common;
-using Rino.GameFramework.Core.AttributeSystem.Model;
-using Attribute = Rino.GameFramework.Core.AttributeSystem.Model.Attribute;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Controller
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Controller 介面（資源型）

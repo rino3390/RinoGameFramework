@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Rino.GameFramework.Core.AttributeSystem.Common;
-using Rino.GameFramework.Core.DDDCore.Domain;
+using Rino.GameFramework.DDDCore;
 using UniRx;
 
-namespace Rino.GameFramework.Core.AttributeSystem.Model
+namespace Rino.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 通用屬性實例，不知道「生命」「攻擊」等具體概念

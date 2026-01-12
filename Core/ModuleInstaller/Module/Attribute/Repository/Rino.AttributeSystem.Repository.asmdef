@@ -1,6 +1,6 @@
 {
     "name": "Rino.AttributeSystem.Repository",
-    "rootNamespace": "Rino.GameFramework.Core.AttributeSystem.Repository",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
         "Rino.DDDCore",
         "Rino.AttributeSystem.Common",
