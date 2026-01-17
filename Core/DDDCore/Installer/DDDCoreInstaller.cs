@@ -1,5 +1,4 @@
 using MessagePipe;
-using MessagePipe;
 using Zenject;
 
 namespace Rino.GameFramework.DDDCore
@@ -11,8 +10,7 @@ namespace Rino.GameFramework.DDDCore
     {
         public override void InstallBindings()
         {
-            var options = Container.BindMessagePipe();
-            Container.Bind<MessagePipeOptions>().FromInstance(options).AsSingle();
+            Container.BindMessagePipe();
 
             Container.Bind<IEventBus>().To<EventBus>().AsSingle();
             Container.Bind<Publisher>().AsSingle();
