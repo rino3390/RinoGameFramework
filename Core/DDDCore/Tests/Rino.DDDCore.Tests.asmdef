@@ -2,6 +2,10 @@
     "name": "Rino.DDDCore.Tests",
     "rootNamespace": "Rino.GameFramework.DDDCore.Tests",
     "references": [
+        "Rino.DDDCore.CoreEvent",
+        "Rino.DDDCore.Domain",
+        "Rino.DDDCore.EventBus",
+        "Rino.DDDCore.Installer",
         "GUID:d8fc630016373ef4c964cd9b6a3b1884",
         "GUID:346e8625778bbcb418b98a96f8448bc2",
         "GUID:0acc523941302664db1f4e527237feb3",

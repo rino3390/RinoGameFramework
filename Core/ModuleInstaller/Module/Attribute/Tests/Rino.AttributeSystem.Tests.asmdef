@@ -2,7 +2,7 @@
     "name": "Rino.AttributeSystem.Tests",
     "rootNamespace": "Rino.GameFramework.AttributeSystem.Tests",
     "references": [
-        "GUID:d8fc630016373ef4c964cd9b6a3b1884",
+        "GUID:704ede42b805de84fbe3c8827ed599b2",
         "GUID:35bfa476343371c4190abb94641925a1",
         "GUID:0b51a95f810fea0478c4a8985cd95ed2",
         "GUID:780aab4a852571640b656fb69c25331e",
