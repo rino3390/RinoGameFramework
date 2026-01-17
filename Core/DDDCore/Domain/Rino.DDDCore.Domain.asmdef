@@ -1,10 +1,8 @@
 {
-    "name": "Rino.AttributeSystem.Repository",
-    "rootNamespace": "Rino.GameFramework.AttributeSystem",
+    "name": "Rino.DDDCore.Domain",
+    "rootNamespace": "Rino.GameFramework.DDDCore",
     "references": [
-        "Rino.DDDCore.Domain",
-        "Rino.AttributeSystem.Common",
-        "Rino.AttributeSystem.Model"
+        "Rino.DDDCore.CoreEvent"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

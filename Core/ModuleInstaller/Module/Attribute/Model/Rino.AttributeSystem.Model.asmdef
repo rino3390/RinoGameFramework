@@ -2,7 +2,7 @@
     "name": "Rino.AttributeSystem.Model",
     "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
-        "Rino.DDDCore",
+        "Rino.DDDCore.Domain",
         "Rino.AttributeSystem.Common",
         "UniRx"
     ],
