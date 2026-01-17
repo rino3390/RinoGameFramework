@@ -14,26 +14,26 @@ namespace Rino.GameFramework.BuffSystem.Tests
             repository = new BuffRepository();
         }
 
-        #region Add Tests
+        #region Save Tests
 
         [Test]
-        public void Add_WithValidBuff_StoresInRepository()
+        public void Save_WithValidBuff_StoresInRepository()
         {
             var buff = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
 
-            repository.Add(buff);
+            repository.Save(buff);
 
             Assert.AreEqual(buff, repository.Get("buff-1"));
         }
 
         [Test]
-        public void Add_WithSameId_OverwritesExisting()
+        public void Save_WithSameId_OverwritesExisting()
         {
             var buff1 = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
             var buff2 = new Buff("buff-1", "Burn", "owner-2", "source-2", null, null, null);
 
-            repository.Add(buff1);
-            repository.Add(buff2);
+            repository.Save(buff1);
+            repository.Save(buff2);
 
             Assert.AreEqual("Burn", repository.Get("buff-1").BuffName);
         }
@@ -46,7 +46,7 @@ namespace Rino.GameFramework.BuffSystem.Tests
         public void Get_WithExistingId_ReturnsBuff()
         {
             var buff = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
-            repository.Add(buff);
+            repository.Save(buff);
 
             var result = repository.Get("buff-1");
 
@@ -71,9 +71,9 @@ namespace Rino.GameFramework.BuffSystem.Tests
             var buff1 = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
             var buff2 = new Buff("buff-2", "Burn", "owner-1", "source-1", null, null, null);
             var buff3 = new Buff("buff-3", "Freeze", "owner-2", "source-1", null, null, null);
-            repository.Add(buff1);
-            repository.Add(buff2);
-            repository.Add(buff3);
+            repository.Save(buff1);
+            repository.Save(buff2);
+            repository.Save(buff3);
 
             var result = repository.GetByOwner("owner-1").ToList();
 
@@ -92,50 +92,50 @@ namespace Rino.GameFramework.BuffSystem.Tests
 
         #endregion
 
-        #region GetAll Tests
+        #region Values Tests
 
         [Test]
-        public void GetAll_WithMultipleBuffs_ReturnsAllBuffs()
+        public void Values_WithMultipleBuffs_ReturnsAllBuffs()
         {
             var buff1 = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
             var buff2 = new Buff("buff-2", "Burn", "owner-2", "source-1", null, null, null);
-            repository.Add(buff1);
-            repository.Add(buff2);
+            repository.Save(buff1);
+            repository.Save(buff2);
 
-            var result = repository.GetAll().ToList();
+            var result = repository.Values.ToList();
 
             Assert.AreEqual(2, result.Count);
         }
 
         [Test]
-        public void GetAll_WithEmptyRepository_ReturnsEmptyList()
+        public void Values_WithEmptyRepository_ReturnsEmptyList()
         {
-            var result = repository.GetAll().ToList();
+            var result = repository.Values.ToList();
 
             Assert.IsEmpty(result);
         }
 
         #endregion
 
-        #region Remove Tests
+        #region DeleteById Tests
 
         [Test]
-        public void Remove_WithExistingId_RemovesBuff()
+        public void DeleteById_WithExistingId_RemovesBuff()
         {
             var buff = new Buff("buff-1", "Poison", "owner-1", "source-1", null, null, null);
-            repository.Add(buff);
+            repository.Save(buff);
 
-            repository.Remove("buff-1");
+            repository.DeleteById("buff-1");
 
             Assert.IsNull(repository.Get("buff-1"));
         }
 
         [Test]
-        public void Remove_WithNonExistingId_DoesNothing()
+        public void DeleteById_WithNonExistingId_DoesNothing()
         {
-            repository.Remove("non-existing");
+            repository.DeleteById("non-existing");
 
-            Assert.IsEmpty(repository.GetAll());
+            Assert.IsEmpty(repository.Values);
         }
 
         #endregion

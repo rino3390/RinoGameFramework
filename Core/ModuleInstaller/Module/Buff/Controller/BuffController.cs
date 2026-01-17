@@ -100,7 +100,7 @@ namespace Rino.GameFramework.BuffSystem
             // 訂閱 Model 的狀態變化事件
             SubscribeTo(newBuff);
 
-            repository.Add(newBuff);
+            repository.Save(newBuff);
 
             // 生命週期事件：Controller 直接發送
             publisher.Publish(new BuffApplied(newBuff.Id, ownerId, buffName, sourceId));
@@ -139,7 +139,7 @@ namespace Rino.GameFramework.BuffSystem
                         turns: config.Turns
                     );
                     SubscribeTo(newBuff);
-                    repository.Add(newBuff);
+                    repository.Save(newBuff);
                     publisher.Publish(new BuffApplied(newBuff.Id, existing.OwnerId, config.BuffName, sourceId));
                     NotifyBuffsChanged(existing.OwnerId);
                     return newBuff.Id;
@@ -203,7 +203,7 @@ namespace Rino.GameFramework.BuffSystem
             var buffName = buff.BuffName;
             var modifierRecords = buff.ModifierRecords.ToList();
 
-            repository.Remove(buffId);
+            repository.DeleteById(buffId);
 
             // 生命週期事件：Controller 直接發送
             publisher.Publish(new BuffRemoved(buffId, ownerId, buffName, modifierRecords, reason));
@@ -214,7 +214,7 @@ namespace Rino.GameFramework.BuffSystem
         /// <inheritdoc />
         public void TickTime(float deltaTime)
         {
-            var allBuffs = repository.GetAll().ToList();
+            var allBuffs = repository.Values.ToList();
 
             foreach (var buff in allBuffs)
             {

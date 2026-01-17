@@ -2,7 +2,8 @@
     "name": "Rino.BuffSystem.Repository",
     "rootNamespace": "Rino.GameFramework.BuffSystem",
     "references": [
-        "Rino.BuffSystem.Model"
+        "Rino.BuffSystem.Model",
+        "Rino.DDDCore.Domain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
