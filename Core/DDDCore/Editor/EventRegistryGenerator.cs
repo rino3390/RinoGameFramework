@@ -121,7 +121,6 @@ namespace Rino.GameFramework.DDDCore.Editor
 // Do not modify manually.
 // </auto-generated>
 #if ZENJECT
-using MessagePipe.Zenject;
 using Zenject;
 
 namespace Rino.GameFramework.DDDCore
