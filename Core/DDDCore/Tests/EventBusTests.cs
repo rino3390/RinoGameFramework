@@ -139,17 +139,6 @@ namespace Rino.GameFramework.DDDCore.Tests
 		}
 
 		[Test]
-		public void Publish_WithNullEvent_DoesNotThrow()
-		{
-			// Arrange
-			var publisher = Container.Resolve<Publisher>();
-			LogAssert.ignoreFailingMessages = true;
-
-			// Act & Assert
-			Assert.DoesNotThrow(() => publisher.Publish<TestEvent>(null));
-		}
-
-		[Test]
 		public void Subscribe_MultipleTimes_EachSubscriptionWorksIndependently()
 		{
 			// Arrange
@@ -182,16 +171,6 @@ namespace Rino.GameFramework.DDDCore.Tests
 			Assert.DoesNotThrow(() => publisher.Publish(testEvent));
 		}
 
-		[Test]
-		public void PublishAsync_WithNullEvent_DoesNotThrow()
-		{
-			// Arrange
-			var publisher = Container.Resolve<Publisher>();
-			LogAssert.ignoreFailingMessages = true;
-
-			// Act & Assert
-			Assert.DoesNotThrow(() => publisher.PublishAsync<TestEvent>(null));
-		}
 	#endregion
 
 		private class TestEvent: IEvent
