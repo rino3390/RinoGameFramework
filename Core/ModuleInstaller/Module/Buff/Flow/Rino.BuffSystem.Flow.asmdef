@@ -2,9 +2,11 @@
     "name": "Rino.BuffSystem.Flow",
     "rootNamespace": "Rino.GameFramework.BuffSystem",
     "references": [
+        "Rino.DDDCore.CoreEvent",
         "Rino.DDDCore.EventBus",
         "Rino.BuffSystem.Controller",
         "Rino.BuffSystem.Event",
+        "Rino.BuffSystem.Model",
         "Zenject"
     ],
     "includePlatforms": [],

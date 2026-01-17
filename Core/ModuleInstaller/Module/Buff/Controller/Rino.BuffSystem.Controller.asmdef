@@ -3,6 +3,7 @@
     "rootNamespace": "Rino.GameFramework.BuffSystem",
     "references": [
         "Rino.DDDCore.Domain",
+        "Rino.DDDCore.CoreEvent",
         "Rino.DDDCore.EventBus",
         "Rino.BuffSystem.Common",
         "Rino.BuffSystem.Model",

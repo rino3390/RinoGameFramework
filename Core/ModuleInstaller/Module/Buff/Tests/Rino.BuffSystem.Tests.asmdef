@@ -2,9 +2,11 @@
     "name": "Rino.BuffSystem.Tests",
     "rootNamespace": "Rino.GameFramework.BuffSystem.Tests",
     "references": [
+        "Rino.DDDCore.CoreEvent",
         "Rino.DDDCore.Domain",
         "Rino.DDDCore.EventBus",
-        "Rino.DDDCore.TestFramework",
+        "Rino.DDDCore.Installer",
+        "Rino.TestFramework",
         "Rino.BuffSystem.Common",
         "Rino.BuffSystem.Model",
         "Rino.BuffSystem.Event",

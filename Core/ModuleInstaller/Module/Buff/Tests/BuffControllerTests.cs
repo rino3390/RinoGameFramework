@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using Rino.GameFramework.AttributeSystem;
 using Rino.GameFramework.DDDCore;
