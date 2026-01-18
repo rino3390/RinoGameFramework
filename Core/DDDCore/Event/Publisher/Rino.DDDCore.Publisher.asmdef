@@ -1,13 +1,10 @@
 {
-    "name": "Rino.DDDCore.Installer",
+    "name": "Rino.DDDCore.Publisher",
     "rootNamespace": "Rino.GameFramework.DDDCore",
     "references": [
         "Rino.DDDCore.EventBus",
-        "Rino.DDDCore.Publisher",
-        "Rino.DDDCore.Subscriber",
-        "MessagePipe",
-        "MessagePipe.Zenject",
-        "Zenject"
+        "Rino.DDDCore.CoreEvent",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -16,12 +13,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [
-        {
-            "name": "com.svermeulen.extenject",
-            "expression": "",
-            "define": "ZENJECT"
-        }
-    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
