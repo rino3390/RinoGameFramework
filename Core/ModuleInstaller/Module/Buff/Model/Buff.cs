@@ -1,7 +1,7 @@
 using Rino.GameFramework.DDDCore;
+using Rino.GameFramework.RinoUtility;
 using System;
 using System.Collections.Generic;
-using UniRx;
 
 namespace Rino.GameFramework.BuffSystem
 {
@@ -10,46 +10,6 @@ namespace Rino.GameFramework.BuffSystem
 	/// </summary>
 	public class Buff: Entity
 	{
-		/// <summary>
-		/// 是否已過期
-		/// </summary>
-		public bool IsExpired => (RemainingDuration.HasValue && RemainingDuration <= 0) || (RemainingTurns.HasValue && RemainingTurns <= 0);
-
-		/// <summary>
-		/// 剩餘持續時間（秒），null 表示永久
-		/// </summary>
-		public float? RemainingDuration { get; private set; }
-
-		/// <summary>
-		/// 當前堆疊數
-		/// </summary>
-		public int StackCount { get; private set; }
-
-		/// <summary>
-		/// 最大堆疊數，null 表示無上限
-		/// </summary>
-		public int? MaxStack { get; }
-
-		/// <summary>
-		/// 剩餘回合數，null 表示永久
-		/// </summary>
-		public int? RemainingTurns { get; private set; }
-
-		/// <summary>
-		/// 時間刷新事件
-		/// </summary>
-		public IObservable<BuffDurationRefreshedInfo> OnDurationRefreshed => durationRefreshedSubject;
-
-		/// <summary>
-		/// 堆疊變化事件
-		/// </summary>
-		public IObservable<BuffStackChangedInfo> OnStackChanged => stackChangedSubject;
-
-		/// <summary>
-		/// Modifier 記錄列表
-		/// </summary>
-		public List<ModifierRecord> ModifierRecords { get; }
-
 		/// <summary>
 		/// Buff 名稱
 		/// </summary>
@@ -65,8 +25,45 @@ namespace Rino.GameFramework.BuffSystem
 		/// </summary>
 		public string SourceId { get; }
 
-		private readonly Subject<BuffDurationRefreshedInfo> durationRefreshedSubject = new();
-		private readonly Subject<BuffStackChangedInfo> stackChangedSubject = new();
+		/// <summary>
+		/// 剩餘持續時間（秒），null 表示永久
+		/// </summary>
+		public float? RemainingDuration { get; private set; }
+
+		/// <summary>
+		/// 剩餘回合數，null 表示永久
+		/// </summary>
+		public int? RemainingTurns { get; private set; }
+
+		/// <summary>
+		/// 是否已過期
+		/// </summary>
+		public bool IsExpired => RemainingDuration is <= 0 || RemainingTurns is <= 0 || StackCount <= 0;
+
+		/// <summary>
+		/// 最大堆疊數，null 表示無上限
+		/// </summary>
+		public int? MaxStack { get; }
+
+		/// <summary>
+		/// 當前堆疊數
+		/// </summary>
+		public int StackCount { get; private set; }
+
+		/// <summary>
+		/// Modifier 記錄列表
+		/// </summary>
+		public List<ModifierRecord> ModifierRecords { get; }
+
+		/// <summary>
+		/// 堆疊變化事件
+		/// </summary>
+		public ReactiveEvent<BuffStackChangedInfo> OnStackChanged { get; } = new();
+
+		/// <summary>
+		/// 過期事件（當 Buff 剛好變成過期時觸發）
+		/// </summary>
+		public ReactiveEvent<BuffExpiredInfo> OnExpired { get; } = new();
 
 		public Buff(string id, string buffName, string ownerId, string sourceId, int? maxStack, float? duration, int? turns): base(id)
 		{
@@ -87,37 +84,24 @@ namespace Rino.GameFramework.BuffSystem
 		}
 
 		/// <summary>
-		/// 是否可以增加堆疊
+		/// 變更疊層數
 		/// </summary>
-		public bool CanAddStack()
-		{
-			return !MaxStack.HasValue || StackCount < MaxStack.Value;
-		}
-
-		/// <summary>
-		/// 增加堆疊數
-		/// </summary>
-		/// <param name="count">增加數量</param>
-		public void AddStack(int count = 1)
+		/// <param name="delta">變更量（正數增加，負數減少）</param>
+		public void ChangeStack(int delta)
 		{
 			var oldStack = StackCount;
-			StackCount += count;
+			StackCount += delta;
+			if (MaxStack.HasValue)
+			{
+				StackCount = Math.Min(StackCount, MaxStack.Value);
+			}
 
-			if(MaxStack.HasValue) StackCount = Math.Min(StackCount, MaxStack.Value);
+			StackCount = Math.Max(0, StackCount);
 
-			if(StackCount != oldStack) stackChangedSubject.OnNext(new BuffStackChangedInfo(Id, OwnerId, BuffName, oldStack, StackCount));
-		}
-
-		/// <summary>
-		/// 減少堆疊數
-		/// </summary>
-		/// <param name="count">減少數量</param>
-		public void RemoveStack(int count = 1)
-		{
-			var oldStack = StackCount;
-			StackCount = Math.Max(val1: 0, StackCount - count);
-
-			if(StackCount != oldStack) stackChangedSubject.OnNext(new BuffStackChangedInfo(Id, OwnerId, BuffName, oldStack, StackCount));
+			if (StackCount != oldStack)
+			{
+				OnStackChanged.Invoke(new BuffStackChangedInfo(Id, OwnerId, BuffName, oldStack, StackCount));
+			}
 		}
 
 		/// <summary>
@@ -127,7 +111,6 @@ namespace Rino.GameFramework.BuffSystem
 		public void RefreshDuration(float? duration)
 		{
 			RemainingDuration = duration;
-			durationRefreshedSubject.OnNext(new BuffDurationRefreshedInfo(Id, OwnerId, BuffName));
 		}
 
 		/// <summary>
@@ -140,21 +123,31 @@ namespace Rino.GameFramework.BuffSystem
 		}
 
 		/// <summary>
-		/// 時間流逝
+		/// 調整持續時間
 		/// </summary>
-		/// <param name="deltaTime">經過的時間（秒）</param>
-		public void TickTime(float deltaTime)
+		/// <param name="delta">變更量（正數減少，負數增加）</param>
+		public void AdjustDuration(float delta)
 		{
-			if(RemainingDuration.HasValue) RemainingDuration -= deltaTime;
+			if (!RemainingDuration.HasValue) return;
+
+			var wasExpired = IsExpired;
+			RemainingDuration -= delta;
+
+			if (!wasExpired && IsExpired) OnExpired.Invoke(new BuffExpiredInfo(Id, OwnerId, BuffName));
 		}
 
 		/// <summary>
-		/// 回合流逝
+		/// 調整回合數
 		/// </summary>
-		/// <param name="count">經過的回合數</param>
-		public void TickTurn(int count = 1)
+		/// <param name="delta">變更量（正數減少，負數增加）</param>
+		public void AdjustTurns(int delta)
 		{
-			if(RemainingTurns.HasValue) RemainingTurns -= count;
+			if (!RemainingTurns.HasValue) return;
+
+			var wasExpired = IsExpired;
+			RemainingTurns -= delta;
+
+			if (!wasExpired && IsExpired) OnExpired.Invoke(new BuffExpiredInfo(Id, OwnerId, BuffName));
 		}
 
 		/// <summary>
@@ -168,7 +161,7 @@ namespace Rino.GameFramework.BuffSystem
 		}
 
 		/// <summary>
-		/// 移除最後一筆 Modifier 記錄
+		/// 移除最後一筆 Modifier 記錄（用於堆疊減少時，以 LIFO 順序移除對應的 Modifier）
 		/// </summary>
 		/// <returns>被移除的記錄，若無記錄則回傳 null</returns>
 		public ModifierRecord RemoveLastModifierRecord()

@@ -4,7 +4,7 @@
     "references": [
         "Rino.DDDCore.Domain",
         "Rino.BuffSystem.Common",
-        "UniRx"
+        "Rino.RinoUtility"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
