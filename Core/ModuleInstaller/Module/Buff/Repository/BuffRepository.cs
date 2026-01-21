@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Rino.GameFramework.DDDCore;
 
 namespace Rino.GameFramework.BuffSystem
@@ -17,9 +16,6 @@ namespace Rino.GameFramework.BuffSystem
         }
 
         /// <inheritdoc />
-        public IEnumerable<Buff> GetByOwner(string ownerId)
-        {
-            return entities.Values.Where(b => b.OwnerId == ownerId);
-        }
+        public IEnumerable<Buff> GetByOwner(string ownerId) => FindAll(b => b.OwnerId == ownerId);
     }
 }
