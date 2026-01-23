@@ -1,8 +1,6 @@
-using Rino.GameFramework.AttributeSystem;
 using Rino.GameFramework.GameManagerBase;
 using Rino.GameFramework.RinoUtility;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 using UnityEngine;
 
 namespace Rino.GameFramework.GameSetting
@@ -14,20 +12,31 @@ namespace Rino.GameFramework.GameSetting
 	{
 		public override string TabName => "遊戲設定";
 
+		private GameSettingConfig config;
+
 		protected override OdinMenuTree BuildMenuTree()
 		{
 			var tree = SetTree(iconSize: 20);
-			tree.Add("屬性設定", GetAttributeSettingData(), SdfIconType.Sliders);
+			config = GetOrCreateConfig();
+
+			foreach (var item in config.Settings)
+			{
+				if (item.Data != null)
+				{
+					tree.Add(item.Name, item.Data, item.Icon);
+				}
+			}
+
 			return tree;
 		}
 
-		private AttributeSettingData GetAttributeSettingData()
+		private GameSettingConfig GetOrCreateConfig()
 		{
-			var data = RinoEditorUtility.FindAsset<AttributeSettingData>();
+			var data = RinoEditorUtility.FindAsset<GameSettingConfig>();
 			if (data != null) return data;
 
-			data = ScriptableObject.CreateInstance<AttributeSettingData>();
-			RinoEditorUtility.CreateSOData(data, "Data/AttributeSettingData");
+			data = ScriptableObject.CreateInstance<GameSettingConfig>();
+			RinoEditorUtility.CreateSOData(data, "Data/GameSetting/Config");
 			return data;
 		}
 	}

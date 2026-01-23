@@ -1,12 +1,11 @@
 {
-    "name": "Rino.GameSetting.Editor",
-    "rootNamespace": "Rino.GameFramework.GameSetting",
+    "name": "Rino.BuffSystem.View.Editor",
+    "rootNamespace": "Rino.GameFramework.BuffSystem",
     "references": [
+        "Rino.BuffSystem.View",
         "Rino.GameManager.Base",
         "Rino.RinoUtility.Editor",
-        "Sirenix.Serialization.Config",
-        "Sirenix.Serialization",
-        "Sirenix.Utilities"
+        "Rino.SOBase"
     ],
     "includePlatforms": [
         "Editor"

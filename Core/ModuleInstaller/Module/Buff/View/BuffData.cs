@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Rino.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace Rino.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 配置 ScriptableObject
 	/// </summary>
-	[CreateAssetMenu(menuName = "RinoGameFramework/Data/BuffData")]
-	public class BuffData: ScriptableObject
+	public class BuffData : SODataBase
 	{
 		[BoxGroup("基本資訊")]
 		[LabelText("Buff 名稱")]
@@ -64,5 +63,16 @@ namespace Rino.GameFramework.BuffSystem
 				Effects = Effects?.Select(e => e.ToConfig()).ToList() ?? new List<BuffEffectConfig>()
 			};
 		}
+
+#if UNITY_EDITOR
+		/// <summary>
+		/// 驗證資料是否合法
+		/// </summary>
+		/// <returns>資料是否合法</returns>
+		public override bool IsDataLegal()
+		{
+			return base.IsDataLegal() && !string.IsNullOrEmpty(BuffName);
+		}
+#endif
 	}
 }
