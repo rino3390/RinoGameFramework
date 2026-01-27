@@ -1,49 +1,53 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using Rino.GameFramework.GameManagerBase;
+using Rino.GameFramework.RinoUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Sirenix.Utilities.Editor;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace Rino.GameFramework.GameSetting
 {
 	/// <summary>
 	/// 遊戲設定配置，管理要顯示的 Setting 項目
 	/// </summary>
-	[CreateAssetMenu(menuName = "RinoGameFramework/Setting/GameSettingConfig")]
-	public class GameSettingConfig : SerializedScriptableObject
+	public class GameSettingConfig: SerializedScriptableObject
 	{
 		[OdinSerialize]
-		[ListDrawerSettings(
-			CustomAddFunction = nameof(CreateNewItem),
-			ListElementLabelName = "Name",
-			DraggableItems = true)]
+		[ListDrawerSettings(CustomAddFunction = nameof(CreateNewTab), DraggableItems = true)]
 		[LabelText("Setting 列表")]
 		public List<SettingItemData> Settings = new();
 
-		private SettingItemData CreateNewItem()
+		private SettingItemData CreateNewTab()
 		{
-			return new SettingItemData { Name = "New Setting" };
+			return new SettingItemData();
 		}
 	}
 
 	/// <summary>
 	/// Setting 項目資料
 	/// </summary>
-	[Serializable]
+	[HideReferenceObjectPicker]
 	public class SettingItemData
 	{
-		[HorizontalGroup("Main", 0.08f)]
-		[HideLabel]
-		[LabelText("圖示")]
 		public SdfIconType Icon = SdfIconType.GearFill;
 
-		[HorizontalGroup("Main")]
-		[LabelText("名稱")]
-		public string Name;
+		[LabelText("繪製視窗")]
+		[ValueDropdown("GetSettingEditorTypes")]
+		[Required]
+		public Type SettingEditorType;
 
-		[LabelText("Setting Data")]
-		[InlineEditor(InlineEditorObjectFieldModes.Foldout)]
-		public ScriptableObject Data;
+		private static IEnumerable GetSettingEditorTypes()
+		{
+			return RinoEditorUtility.GetDerivedClasses<GameEditorMenuBase>()
+				.Where(type => type != typeof(GameSettingEditorMenu))
+				.Select(type =>
+				{
+					var instance = Activator.CreateInstance(type) as GameEditorMenuBase;
+					return new ValueDropdownItem(instance?.TabName ?? type.Name, type);
+				})
+				.ToList();
+		}
 	}
 }

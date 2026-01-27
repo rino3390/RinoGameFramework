@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Rino.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Rino.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 配置 ScriptableObject
 	/// </summary>
+	[DataEditorConfig("Buff 資料", "Data/Buff", "Buff")]
 	public class BuffData : SODataBase
 	{
 		[BoxGroup("基本資訊")]

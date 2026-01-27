@@ -1,11 +1,10 @@
 {
-    "name": "Rino.BuffSystem.View.Editor",
-    "rootNamespace": "Rino.GameFramework.BuffSystem",
+    "name": "Rino.AttributeSystem.View.Editor",
+    "rootNamespace": "Rino.GameFramework.AttributeSystem",
     "references": [
-        "Rino.BuffSystem.View",
+        "Rino.AttributeSystem.View",
         "Rino.GameManager.Base",
-        "Rino.RinoUtility.Editor",
-        "Rino.SOBase"
+        "Rino.RinoUtility.Editor"
     ],
     "includePlatforms": [
         "Editor"
