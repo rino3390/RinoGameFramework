@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -151,6 +154,27 @@ namespace Rino.GameFramework.RinoUtility.Editor
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// 繪製帶有圖示的工具列按鈕（搭配Odin Icon）
+		/// </summary>
+		/// <param name="label">按鈕文字</param>
+		/// <param name="icon">SDF 圖示</param>
+		/// <returns>是否被點擊</returns>
+		public static bool ToolbarButtonWithIcon(string label, SdfIconType icon)
+		{
+			var content = new GUIContent("%.%" + label);
+			var style = EditorStyles.toolbarButton;
+			var rect = GUILayoutUtility.GetRect(content, style);
+
+			var clicked = GUI.Button(rect, "     " + label, style);
+
+			var iconRect = rect.AlignLeft(20).AlignCenter(14, 14);
+			iconRect.x += 6;
+			SdfIcons.DrawIcon(iconRect, icon);
+
+			return clicked;
 		}
 	}
 }

@@ -77,7 +77,7 @@ namespace Rino.GameFramework.AttributeSystem
 		/// <inheritdoc />
         public void SetMinValue(string ownerId, string attributeName, int value)
         {
-            var config = configs.FirstOrDefault(c => c.AttributeName == attributeName);
+            var config = configs.FirstOrDefault(c => c.Id == attributeName);
             if (!string.IsNullOrEmpty(config.RelationMin)) return;
 
             var attribute = repository.Get(ownerId, attributeName);
@@ -87,7 +87,7 @@ namespace Rino.GameFramework.AttributeSystem
 		/// <inheritdoc />
         public void SetMaxValue(string ownerId, string attributeName, int value)
         {
-            var config = configs.FirstOrDefault(c => c.AttributeName == attributeName);
+            var config = configs.FirstOrDefault(c => c.Id == attributeName);
             if (!string.IsNullOrEmpty(config.RelationMax)) return;
 
             var attribute = repository.Get(ownerId, attributeName);
@@ -121,7 +121,7 @@ namespace Rino.GameFramework.AttributeSystem
 		/// <inheritdoc />
         public Attribute CreateAttribute(string ownerId, string attributeName, int baseValue)
         {
-            var config = configs.FirstOrDefault(c => c.AttributeName == attributeName);
+            var config = configs.FirstOrDefault(c => c.Id == attributeName);
             var minValue = GetRelationValue(ownerId, config.RelationMin, config.Min);
             var maxValue = GetRelationValue(ownerId, config.RelationMax, config.Max);
 
@@ -226,10 +226,10 @@ namespace Rino.GameFramework.AttributeSystem
 			foreach (var config in configs)
             {
                 if (config.RelationMax == sourceAttributeName)
-                    TryUpdateDependentAttribute(ownerId, config.AttributeName, sourceAttribute.Value, (attr, val) => attr.SetMaxValue(val));
+                    TryUpdateDependentAttribute(ownerId, config.Id, sourceAttribute.Value, (attr, val) => attr.SetMaxValue(val));
 
                 if (config.RelationMin == sourceAttributeName)
-                    TryUpdateDependentAttribute(ownerId, config.AttributeName, sourceAttribute.Value, (attr, val) => attr.SetMinValue(val));
+                    TryUpdateDependentAttribute(ownerId, config.Id, sourceAttribute.Value, (attr, val) => attr.SetMinValue(val));
             }
         }
 

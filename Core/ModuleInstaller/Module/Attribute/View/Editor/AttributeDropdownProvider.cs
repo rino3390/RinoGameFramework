@@ -19,7 +19,7 @@ namespace Rino.GameFramework.AttributeSystem
 			if (settingData == null) return new[] { "" };
 
 			var names = settingData.Attributes
-				.Select(x => x.AttributeName)
+				.Select(x => x.Id)
 				.Where(x => !string.IsNullOrEmpty(x) && x != excludeName);
 
 			return new[] { "" }.Concat(names);

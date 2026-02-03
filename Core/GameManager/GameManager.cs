@@ -1,6 +1,8 @@
 using Rino.GameFramework.GameManagerBase;
 using Rino.GameFramework.RinoUtility.Editor;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Rino.GameFramework.Localization.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
@@ -55,6 +57,8 @@ namespace Rino.GameFramework.GameManager
         /// </summary>
         protected override void OnImGUI()
         {
+            DrawToolbar();
+
             if (menu == null)
             {
                 TrySetFirstValidMenu();
@@ -76,7 +80,20 @@ namespace Rino.GameFramework.GameManager
             base.OnImGUI();
         }
 
-        /// <summary>
+        private void DrawToolbar()
+        {
+            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUILayout.FlexibleSpace();
+
+            if (RinoEditorUtility.ToolbarButtonWithIcon("多語系設定", SdfIconType.Translate))
+            {
+                RinoLocalizationEditorWindow.OpenFromMenu();
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+		/// <summary>
         /// 建立選單樹
         /// </summary>
         /// <returns>選單樹</returns>
@@ -92,7 +109,7 @@ namespace Rino.GameFramework.GameManager
             return menu.MenuTree;
         }
 
-        private void TrySetFirstValidMenu()
+		private void TrySetFirstValidMenu()
         {
             if (tabSetting == null) return;
 
@@ -103,7 +120,7 @@ namespace Rino.GameFramework.GameManager
             }
         }
 
-        private void SwitchMenu(Type windowType)
+		private void SwitchMenu(Type windowType)
         {
             if (windowType == null) return;
 
@@ -115,7 +132,7 @@ namespace Rino.GameFramework.GameManager
             needsMenuRebuild = true;
         }
 
-        private GameEditorMenuBase GetOrCreateMenu(Type windowType)
+		private GameEditorMenuBase GetOrCreateMenu(Type windowType)
         {
             if (windowType == null) return null;
 
@@ -128,7 +145,7 @@ namespace Rino.GameFramework.GameManager
             return cachedMenu;
         }
 
-        private void DrawWindowTab()
+		private void DrawWindowTab()
         {
             var buttonCount = 0;
             EditorGUILayout.BeginHorizontal();
@@ -156,5 +173,5 @@ namespace Rino.GameFramework.GameManager
 
             EditorGUILayout.EndHorizontal();
         }
-    }
+	}
 }
