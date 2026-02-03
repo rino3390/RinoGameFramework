@@ -1,7 +1,7 @@
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
-namespace Rino.GameFramework.BuffSystem.Tests
+namespace Sumorin.GameFramework.BuffSystem.Tests
 {
     [TestFixture]
     public class BuffRepositoryTests

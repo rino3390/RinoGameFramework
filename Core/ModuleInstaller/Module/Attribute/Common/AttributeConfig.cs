@@ -1,8 +1,8 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
 using UnityEngine.Localization;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
 	/// <summary>
 	/// 屬性配置，從 ScriptableObject 轉換而來

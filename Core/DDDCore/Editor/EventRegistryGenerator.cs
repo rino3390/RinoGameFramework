@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Compilation;
 
-namespace Rino.GameFramework.DDDCore.Editor
+namespace Sumorin.GameFramework.DDDCore.Editor
 {
 	/// <summary>
 	/// 自動掃描所有 IEvent 實作並為每個 Assembly 生成對應的 EventRegistrar
@@ -97,9 +97,9 @@ namespace Rino.GameFramework.DDDCore.Editor
 		private static string GetClassName(string assemblyName)
 		{
 			// 移除前綴和點，轉換為 PascalCase
-			// 例如 "Rino.DDDCore.Domain" -> "DDDCoreDomainEventInstaller"
+			// 例如 "Sumorin.DDDCore.Domain" -> "DDDCoreDomainEventInstaller"
 			var parts = assemblyName.Split('.');
-			var relevantParts = parts.SkipWhile(p => p == "Rino").ToList();
+			var relevantParts = parts.SkipWhile(p => p == "Sumorin").ToList();
 
 			var name = string.Join("", relevantParts.Select(ToPascalCase));
 			return $"{name}EventInstaller";
@@ -123,7 +123,7 @@ namespace Rino.GameFramework.DDDCore.Editor
 #if ZENJECT
 using Zenject;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {{
 	/// <summary>
 	/// 自動生成的 Event Installer，註冊此 Assembly 中的所有 IEvent 實作

@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
     /// <summary>
     /// Odin 下拉選單工具

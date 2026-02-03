@@ -1,8 +1,8 @@
-using System;
-using Rino.GameFramework.DDDCore;
+﻿using System;
+using Sumorin.GameFramework.DDDCore;
 using Zenject;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 移除 Flow，處理 Buff 移除時清理效果

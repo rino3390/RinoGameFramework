@@ -1,10 +1,10 @@
-using Rino.GameFramework.GameManagerBase;
-using Rino.GameFramework.RinoUtility.Editor;
+﻿using Sumorin.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
 	/// <summary>
 	/// 屬性設定編輯器
@@ -33,11 +33,11 @@ namespace Rino.GameFramework.AttributeSystem
 
 		private AttributeSettingData GetOrCreateConfig()
 		{
-			var configData = RinoEditorUtility.FindAsset<AttributeSettingData>();
+			var configData = SumorinEditorUtility.FindAsset<AttributeSettingData>();
 			if (configData != null) return configData;
 
 			configData = ScriptableObject.CreateInstance<AttributeSettingData>();
-			RinoEditorUtility.CreateSOData(configData, "Data/Setting/AttributeSettingData");
+			SumorinEditorUtility.CreateSOData(configData, "Data/Setting/AttributeSettingData");
 			return configData;
 		}
 	}

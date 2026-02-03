@@ -1,12 +1,12 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
-using Rino.GameFramework.AttributeSystem;
-using Rino.GameFramework.DDDCore;
+using Sumorin.GameFramework.AttributeSystem;
+using Sumorin.GameFramework.DDDCore;
 using System.Collections.Generic;
 using UniRx;
 
-namespace Rino.GameFramework.BuffSystem.Tests
+namespace Sumorin.GameFramework.BuffSystem.Tests
 {
 	[TestFixture]
 	public class BuffControllerTests

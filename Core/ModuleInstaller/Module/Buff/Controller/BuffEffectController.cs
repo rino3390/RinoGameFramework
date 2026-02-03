@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.AttributeSystem;
-using Rino.GameFramework.RinoUtility;
+using Sumorin.GameFramework.AttributeSystem;
+using Sumorin.GameFramework.SumorinUtility;
 using Zenject;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 效果 Controller（協調型），處理效果施加/移除，由 Flow 呼叫

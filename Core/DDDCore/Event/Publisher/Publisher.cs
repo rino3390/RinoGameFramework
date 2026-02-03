@@ -1,7 +1,7 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// 事件發布工具，提供簡化的事件發布 API

@@ -1,6 +1,6 @@
-using Rino.GameFramework.GameManagerBase;
+﻿using Sumorin.GameFramework.GameManagerBase;
 
-namespace Rino.GameFramework.Sample.GameManager.Editor
+namespace Sumorin.GameFramework.Sample.GameManager.Editor
 {
     /// <summary>
     /// 測試用資料 Editor 視窗

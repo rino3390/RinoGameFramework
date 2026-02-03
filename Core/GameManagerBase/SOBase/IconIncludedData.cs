@@ -1,7 +1,7 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// 包含圖示的資料基底類別

@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using Cysharp.Threading.Tasks;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// 事件匯流排介面，提供事件發布與訂閱功能

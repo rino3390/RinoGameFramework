@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Rino.GameFramework.GameManagerBase;
-using Rino.GameFramework.RinoUtility.Editor;
+using Sumorin.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameSetting
+namespace Sumorin.GameFramework.GameSetting
 {
 	/// <summary>
 	/// 遊戲設定編輯器選單
@@ -48,11 +48,11 @@ namespace Rino.GameFramework.GameSetting
 
 		private GameSettingConfig GetOrCreateConfig()
 		{
-			var data = RinoEditorUtility.FindAsset<GameSettingConfig>();
+			var data = SumorinEditorUtility.FindAsset<GameSettingConfig>();
 			if (data != null) return data;
 
 			data = ScriptableObject.CreateInstance<GameSettingConfig>();
-			RinoEditorUtility.CreateSOData(data, "Data/GameManager/GameSettingConfig");
+			SumorinEditorUtility.CreateSOData(data, "Data/GameManager/GameSettingConfig");
 			return data;
 		}
 	}

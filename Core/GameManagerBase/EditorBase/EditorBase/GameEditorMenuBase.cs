@@ -1,8 +1,8 @@
-using System.Linq;
+﻿using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using System;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
 	/// <summary>
 	/// GameManager 選單模組的基底類別

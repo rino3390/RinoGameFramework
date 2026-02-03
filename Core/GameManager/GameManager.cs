@@ -1,8 +1,8 @@
-using Rino.GameFramework.GameManagerBase;
-using Rino.GameFramework.RinoUtility.Editor;
+﻿using Sumorin.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using Rino.GameFramework.Localization.Editor;
+using Sumorin.GameFramework.Localization.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
@@ -11,7 +11,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
     /// <summary>
     /// 遊戲管理主視窗
@@ -40,12 +40,12 @@ namespace Rino.GameFramework.GameManager
         /// </summary>
         protected override void Initialize()
         {
-            tabSetting = RinoEditorUtility.FindAsset<GameManagerTabSetting>();
+            tabSetting = SumorinEditorUtility.FindAsset<GameManagerTabSetting>();
 
             if (tabSetting == null)
             {
                 var data = CreateInstance<GameManagerTabSetting>();
-                RinoEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
+                SumorinEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
                 tabSetting = data;
             }
 
@@ -85,9 +85,9 @@ namespace Rino.GameFramework.GameManager
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             GUILayout.FlexibleSpace();
 
-            if (RinoEditorUtility.ToolbarButtonWithIcon("多語系設定", SdfIconType.Translate))
+            if (SumorinEditorUtility.ToolbarButtonWithIcon("多語系設定", SdfIconType.Translate))
             {
-                RinoLocalizationEditorWindow.OpenFromMenu();
+                SumorinLocalizationEditorWindow.OpenFromMenu();
             }
 
             EditorGUILayout.EndHorizontal();

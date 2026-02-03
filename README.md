@@ -1,4 +1,4 @@
-# Rino Game Framework
+# Sumorin Game Framework
 
 Unity MVP 架構共用框架，提供 DDD 核心、遊戲資料管理、通用工具等功能。
 
@@ -9,7 +9,7 @@ Unity MVP 架構共用框架，提供 DDD 核心、遊戲資料管理、通用�
 在 Unity Package Manager 中選擇 "Add package from git URL..."，輸入：
 
 ```
-https://github.com/rino3390/RinoGameFramework.git?path=Core
+https://github.com/rino3390/SumorinGameFramework.git?path=Core
 ```
 
 ### 依賴套件
@@ -54,4 +54,4 @@ https://github.com/rino3390/RinoGameFramework.git?path=Core
 |------|------|
 | DDDCore | Entity、Repository、EventBus 基礎架構 |
 | GameManager | 遊戲資料管理編輯器視窗 |
-| RinoUtility | 通用工具方法 |
+| SumorinUtility | 通用工具方法 |

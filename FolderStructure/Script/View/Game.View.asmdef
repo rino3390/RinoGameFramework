@@ -1,8 +1,8 @@
-{
+﻿{
   "name": "Game.View",
   "rootNamespace": "Game.View",
   "references": [
-    "Rino.DDDCore"
+    "Sumorin.DDDCore"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

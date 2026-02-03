@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Reflection;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
 	/// <summary>
 	/// 動態資料編輯器，根據 DataEditorConfigAttribute 自動配置

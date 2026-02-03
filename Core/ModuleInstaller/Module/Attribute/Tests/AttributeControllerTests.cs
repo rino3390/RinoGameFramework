@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using UniRx;
 
-namespace Rino.GameFramework.AttributeSystem.Tests
+namespace Sumorin.GameFramework.AttributeSystem.Tests
 {
     [TestFixture]
     public class AttributeControllerTests

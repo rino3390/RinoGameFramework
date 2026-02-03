@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
-using Rino.GameFramework.GameManagerBase;
-using Rino.GameFramework.RinoUtility.Editor;
+using Sumorin.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.GameSetting
+namespace Sumorin.GameFramework.GameSetting
 {
 	/// <summary>
 	/// 遊戲設定配置，管理要顯示的 Setting 項目
@@ -40,7 +40,7 @@ namespace Rino.GameFramework.GameSetting
 
 		private static IEnumerable GetSettingEditorTypes()
 		{
-			return RinoEditorUtility.GetDerivedClasses<GameEditorMenuBase>()
+			return SumorinEditorUtility.GetDerivedClasses<GameEditorMenuBase>()
 				.Where(type => type != typeof(GameSettingEditorMenu))
 				.Select(type =>
 				{

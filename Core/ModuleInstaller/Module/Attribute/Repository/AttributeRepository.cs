@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.DDDCore;
+using Sumorin.GameFramework.DDDCore;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Repository 實作

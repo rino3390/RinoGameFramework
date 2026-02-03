@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.BuffSystem
+﻿namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// 記錄 Buff 產生的 Modifier，用於移除時清理

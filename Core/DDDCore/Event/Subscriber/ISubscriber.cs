@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using Cysharp.Threading.Tasks;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
 	/// <summary>
 	/// 事件訂閱工具介面

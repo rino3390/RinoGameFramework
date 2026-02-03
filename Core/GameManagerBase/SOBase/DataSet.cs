@@ -1,5 +1,5 @@
-#if UNITY_EDITOR
-using Rino.GameFramework.RinoUtility.Editor;
+﻿#if UNITY_EDITOR
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.Utilities.Editor;
 #endif
 using Sirenix.OdinInspector;
@@ -10,7 +10,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// 資料集合基底類別，管理 SODataBase 衍生類別的清單
@@ -65,8 +65,8 @@ namespace Rino.GameFramework.GameManagerBase
         {
             if (SirenixEditorGUI.ToolbarButton(EditorIcons.Refresh))
             {
-                Datas = RinoEditorUtility.FindAssets<T>();
-                RinoEditorUtility.SaveSOData(this);
+                Datas = SumorinEditorUtility.FindAssets<T>();
+                SumorinEditorUtility.SaveSOData(this);
             }
         }
 

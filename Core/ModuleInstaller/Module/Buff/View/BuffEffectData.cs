@@ -1,8 +1,8 @@
-using System;
-using Rino.GameFramework.AttributeSystem;
+﻿using System;
+using Sumorin.GameFramework.AttributeSystem;
 using Sirenix.OdinInspector;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 效果配置

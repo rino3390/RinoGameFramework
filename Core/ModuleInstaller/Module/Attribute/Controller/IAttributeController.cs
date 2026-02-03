@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Controller 介面（資源型）

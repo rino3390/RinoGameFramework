@@ -1,0 +1,16 @@
+﻿{
+    "name": "Sumorin.GameFramework.Sample.GameManager",
+    "rootNamespace": "Sumorin.GameFramework.Sample.GameManager",
+    "references": [
+        "Sumorin.SOBase"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

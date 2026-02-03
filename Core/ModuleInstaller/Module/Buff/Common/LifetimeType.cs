@@ -1,6 +1,6 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 生命週期類型

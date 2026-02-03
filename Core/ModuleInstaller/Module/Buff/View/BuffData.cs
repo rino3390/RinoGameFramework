@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Localization;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 配置 ScriptableObject
@@ -23,7 +23,7 @@ namespace Rino.GameFramework.BuffSystem
 		[HorizontalGroup("LifetimeType")]
 		[HideLabel]
 		[HideIf("LifetimeType", LifetimeType.Permanent)]
-		[SuffixLabel("@LifetimeType == Rino.GameFramework.BuffSystem.LifetimeType.TimeBased ? \"秒\" : \"回合\"", Overlay = true)]
+		[SuffixLabel("@LifetimeType == Sumorin.GameFramework.BuffSystem.LifetimeType.TimeBased ? \"秒\" : \"回合\"", Overlay = true)]
 		public float Lifetime;
 
 		[HorizontalGroup("Stack")]

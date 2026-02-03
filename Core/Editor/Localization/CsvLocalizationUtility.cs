@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 
-namespace Rino.GameFramework.Localization.Editor
+namespace Sumorin.GameFramework.Localization.Editor
 {
     /// <summary>
     /// CSV 本地化匯入匯出工具類

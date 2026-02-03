@@ -1,6 +1,6 @@
-using Rino.GameFramework.AttributeSystem;
+﻿using Sumorin.GameFramework.AttributeSystem;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 效果配置

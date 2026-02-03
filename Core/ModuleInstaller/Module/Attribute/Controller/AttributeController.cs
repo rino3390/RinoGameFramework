@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.RinoUtility;
+using Sumorin.GameFramework.SumorinUtility;
 using UniRx;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性 Controller（資源型），管理屬性的建立、修改、關聯更新

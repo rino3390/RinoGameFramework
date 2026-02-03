@@ -1,7 +1,7 @@
-using Rino.GameFramework.RinoUtility;
+﻿using Sumorin.GameFramework.SumorinUtility;
 using Sirenix.OdinInspector;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// ScriptableObject 資料基底類別，提供 Id 和 AssetName 欄位

@@ -1,6 +1,6 @@
-using Zenject;
+﻿using Zenject;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 屬性系統的 Zenject Installer

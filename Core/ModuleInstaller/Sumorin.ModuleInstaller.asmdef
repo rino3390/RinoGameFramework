@@ -1,0 +1,19 @@
+﻿{
+    "name": "Sumorin.ModuleInstaller",
+    "rootNamespace": "Sumorin.GameFramework.ModuleInstaller",
+    "references": [
+        "UniTask",
+        "Sumorin.SumorinUtility.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

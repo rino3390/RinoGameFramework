@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
 using UnityEngine;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// 事件匯流排實作，封裝 MessagePipe

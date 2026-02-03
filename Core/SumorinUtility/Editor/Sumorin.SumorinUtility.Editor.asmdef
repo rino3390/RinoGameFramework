@@ -1,0 +1,21 @@
+﻿{
+  "name": "Sumorin.SumorinUtility.Editor",
+  "rootNamespace": "Sumorin.GameFramework.SumorinUtility.Editor",
+  "references": [
+    "Sumorin.SumorinUtility",
+    "Sirenix.OdinInspector.Attributes",
+    "Unity.Localization",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,11 +1,11 @@
-using Rino.GameFramework.GameManagerBase;
+﻿using Sumorin.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
     /// <summary>
     /// IconIncludedData 自訂繪製器

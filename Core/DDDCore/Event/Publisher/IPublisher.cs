@@ -1,6 +1,6 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
 	/// <summary>
 	/// 事件發布介面

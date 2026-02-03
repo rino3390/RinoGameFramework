@@ -1,6 +1,6 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Rino.GameFramework.AttributeSystem.Tests
+namespace Sumorin.GameFramework.AttributeSystem.Tests
 {
     [TestFixture]
     public class AttributeRepositoryTests

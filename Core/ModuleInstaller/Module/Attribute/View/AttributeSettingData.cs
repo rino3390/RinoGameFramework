@@ -1,8 +1,8 @@
-using Rino.GameFramework.RinoUtility;
+﻿using Sumorin.GameFramework.SumorinUtility;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
 	/// <summary>
 	/// 屬性系統配置，包含所有屬性的定義

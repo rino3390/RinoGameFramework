@@ -1,9 +1,9 @@
-using Rino.GameFramework.DDDCore;
-using Rino.GameFramework.RinoUtility;
+﻿using Sumorin.GameFramework.DDDCore;
+using Sumorin.GameFramework.SumorinUtility;
 using System;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff Entity，效果容器

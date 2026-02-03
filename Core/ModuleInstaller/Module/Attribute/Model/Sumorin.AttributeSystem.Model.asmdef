@@ -1,0 +1,18 @@
+﻿{
+    "name": "Sumorin.AttributeSystem.Model",
+    "rootNamespace": "Sumorin.GameFramework.AttributeSystem",
+    "references": [
+        "Sumorin.DDDCore.Domain",
+        "Sumorin.AttributeSystem.Common",
+        "UniRx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

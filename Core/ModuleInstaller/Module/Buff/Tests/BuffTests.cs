@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
 using UniRx;
 
-namespace Rino.GameFramework.BuffSystem.Tests
+namespace Sumorin.GameFramework.BuffSystem.Tests
 {
 	[TestFixture]
 	public class BuffTests

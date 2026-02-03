@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Tables;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
 	/// <summary>
 	/// 簡化版 LocalizedString Drawer

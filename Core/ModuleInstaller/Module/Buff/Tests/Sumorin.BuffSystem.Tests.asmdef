@@ -1,0 +1,47 @@
+﻿{
+    "name": "Sumorin.BuffSystem.Tests",
+    "rootNamespace": "Sumorin.GameFramework.BuffSystem.Tests",
+    "references": [
+        "UniTask",
+        "Sumorin.DDDCore.CoreEvent",
+        "Sumorin.DDDCore.Domain",
+        "Sumorin.DDDCore.EventBus",
+        "Sumorin.DDDCore.Publisher",
+        "Sumorin.DDDCore.Subscriber",
+        "Sumorin.DDDCore.Installer",
+        "Sumorin.TestFramework",
+        "Sumorin.BuffSystem.Common",
+        "Sumorin.BuffSystem.Model",
+        "Sumorin.BuffSystem.Event",
+        "Sumorin.BuffSystem.Repository",
+        "Sumorin.BuffSystem.Controller",
+        "Sumorin.BuffSystem.Flow",
+        "Sumorin.BuffSystem.Installer",
+        "Sumorin.AttributeSystem.Common",
+        "Sumorin.AttributeSystem.Model",
+        "Sumorin.AttributeSystem.Controller",
+        "Sumorin.AttributeSystem.Repository",
+        "Sumorin.AttributeSystem.Installer",
+        "Sumorin.SumorinUtility",
+        "UniRx",
+        "Zenject",
+        "Zenject-TestFramework"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "FluentAssertions.dll",
+        "NSubstitute.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

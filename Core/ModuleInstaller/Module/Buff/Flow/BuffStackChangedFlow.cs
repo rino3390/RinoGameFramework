@@ -1,8 +1,8 @@
-using System;
-using Rino.GameFramework.DDDCore;
+﻿using System;
+using Sumorin.GameFramework.DDDCore;
 using Zenject;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 堆疊變化 Flow，處理層數變化時增減效果

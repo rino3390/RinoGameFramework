@@ -1,0 +1,22 @@
+﻿{
+    "name": "Sumorin.GameSetting.Editor",
+    "rootNamespace": "Sumorin.GameFramework.GameSetting",
+    "references": [
+        "Sumorin.GameManager.Base",
+        "Sumorin.SumorinUtility.Editor",
+        "Sirenix.Serialization.Config",
+        "Sirenix.Serialization",
+        "Sirenix.Utilities"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

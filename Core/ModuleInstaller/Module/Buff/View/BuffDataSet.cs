@@ -1,7 +1,7 @@
-using Rino.GameFramework.GameManagerBase;
+﻿using Sumorin.GameFramework.GameManagerBase;
 using UnityEngine;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 資料集合

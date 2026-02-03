@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Rino.GameFramework.RinoUtility.Editor;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 
-namespace Rino.GameFramework.AttributeSystem
+namespace Sumorin.GameFramework.AttributeSystem
 {
 	/// <summary>
 	/// 提供屬性名稱下拉選單的資料來源
@@ -15,7 +15,7 @@ namespace Rino.GameFramework.AttributeSystem
 		/// <param name="excludeName">要排除的屬性名稱</param>
 		public static IEnumerable<string> GetAttributeNames(string excludeName)
 		{
-			var settingData = RinoEditorUtility.FindAsset<AttributeSettingData>();
+			var settingData = SumorinEditorUtility.FindAsset<AttributeSettingData>();
 			if (settingData == null) return new[] { "" };
 
 			var names = settingData.Attributes

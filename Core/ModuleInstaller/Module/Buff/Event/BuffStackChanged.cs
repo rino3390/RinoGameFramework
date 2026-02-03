@@ -1,6 +1,6 @@
-using Rino.GameFramework.DDDCore;
+﻿using Sumorin.GameFramework.DDDCore;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 堆疊變化事件
