@@ -1,8 +1,8 @@
-using System;
-using Rino.GameFramework.DDDCore;
+﻿using System;
+using Sumorin.GameFramework.DDDCore;
 using Zenject;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 施加 Flow，處理 Buff 施加時套用效果

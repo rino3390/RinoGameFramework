@@ -1,7 +1,7 @@
-using MessagePipe;
+﻿using MessagePipe;
 using Zenject;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// DDDCore Zenject Installer，負責註冊 EventBus 相關服務

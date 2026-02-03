@@ -1,0 +1,24 @@
+﻿{
+    "name": "Sumorin.GameManager",
+    "rootNamespace": "Sumorin.GameFramework.GameManager",
+    "references": [
+        "Sumorin.GameManager.Base",
+        "Sumorin.SOBase",
+        "Sumorin.SumorinUtility.Editor",
+        "Sumorin.Localization.Editor",
+        "Sirenix.OdinInspector.Modules.UnityLocalization.Editor",
+        "Unity.Localization",
+        "Unity.Localization.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,48 +1,50 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Sumorin.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Localization;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 配置 ScriptableObject
 	/// </summary>
-	[CreateAssetMenu(menuName = "RinoGameFramework/Data/BuffData")]
-	public class BuffData: ScriptableObject
+	[DataEditorConfig("Buff 資料", "Data/Buff", "Buff")]
+	public class BuffData : SODataBase
 	{
-		[BoxGroup("基本資訊")]
 		[LabelText("Buff 名稱")]
-		public string BuffName;
+		public LocalizedString BuffName;
 
-		[BoxGroup("生命週期")]
-		[LabelText("類型")]
+		[HorizontalGroup("LifetimeType")]
+		[LabelText("生命週期")]
 		public LifetimeType LifetimeType;
 
-		[BoxGroup("生命週期")]
-		[LabelText("數值")]
-		[Tooltip("TimeBased = 秒數, TurnBased = 回合數")]
-		[ShowIf("@LifetimeType != LifetimeType.Permanent")]
+		[HorizontalGroup("LifetimeType")]
+		[HideLabel]
+		[HideIf("LifetimeType", LifetimeType.Permanent)]
+		[SuffixLabel("@LifetimeType == Sumorin.GameFramework.BuffSystem.LifetimeType.TimeBased ? \"秒\" : \"回合\"", Overlay = true)]
 		public float Lifetime;
 
-		[BoxGroup("堆疊設定")]
-		[LabelText("堆疊行為")]
+		[HorizontalGroup("Stack")]
+		[LabelText("重複獲得時行為")]
 		public StackBehavior StackBehavior;
 
-		[BoxGroup("堆疊設定")]
-		[LabelText("最大堆疊數")]
-		[Tooltip("0 = 無上限")]
-		public int MaxStack;
+		[HorizontalGroup("Stack")]
+		[ShowIf("StackBehavior", StackBehavior.IncreaseStack)]
+		[MinValue(1)]
+		[LabelText("疊層上限")]
+		public int MaxStack = 1;
 
-		[BoxGroup("互斥設定")]
-		[LabelText("互斥群組")]
+		[HorizontalGroup("MutualExclusion")]
+		[LabelText("互斥群組"), Tooltip("同群組內的Buff會互斥（同時存在會替換掉優先級低的Buff），空字串表示無互斥群組")]
 		public string MutualExclusionGroup;
 
-		[BoxGroup("互斥設定")]
+		[HorizontalGroup("MutualExclusion")]
 		[LabelText("優先級")]
+		[ShowIf("@!string.IsNullOrEmpty(MutualExclusionGroup)")]
 		public int Priority;
 
-		[BoxGroup("效果列表")]
 		[LabelText("效果")]
 		public List<BuffEffectData> Effects;
 
@@ -54,15 +56,26 @@ namespace Rino.GameFramework.BuffSystem
 		{
 			return new BuffConfig
 			{
-				BuffName = BuffName,
+				BuffName = BuffName.GetLocalizedString(),
 				LifetimeType = LifetimeType,
 				Lifetime = Lifetime,
 				StackBehavior = StackBehavior,
-				MaxStack = MaxStack > 0 ? MaxStack : null,
+				MaxStack = StackBehavior == StackBehavior.IncreaseStack ? MaxStack : -1,
 				MutualExclusionGroup = MutualExclusionGroup,
 				Priority = Priority,
 				Effects = Effects?.Select(e => e.ToConfig()).ToList() ?? new List<BuffEffectConfig>()
 			};
 		}
+
+#if UNITY_EDITOR
+		/// <summary>
+		/// 驗證資料是否合法
+		/// </summary>
+		/// <returns>資料是否合法</returns>
+		public override bool IsDataLegal()
+		{
+			return base.IsDataLegal() && !BuffName.IsEmpty;
+		}
+#endif
 	}
 }

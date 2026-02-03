@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Rino.GameFramework.ModuleInstaller
+namespace Sumorin.GameFramework.ModuleInstaller
 {
     /// <summary>
     /// 模組安裝器 Editor Window
@@ -15,8 +15,8 @@ namespace Rino.GameFramework.ModuleInstaller
     /// </summary>
     public class ModuleInstaller : EditorWindow
     {
-        private const string ManifestUrl = "https://raw.githubusercontent.com/rino3390/RinoGameFramework/main/ModuleTemplates/modules.json";
-        private const string GitHubApiBaseUrl = "https://api.github.com/repos/rino3390/RinoGameFramework/contents/";
+        private const string ManifestUrl = "https://raw.githubusercontent.com/rino3390/SumorinGameFramework/main/ModuleTemplates/modules.json";
+        private const string GitHubApiBaseUrl = "https://api.github.com/repos/rino3390/SumorinGameFramework/contents/";
         private const string FolderStructurePrefix = "FolderStructure/";
         private const string ModuleTemplatesPrefix = "ModuleTemplates/";
         private const string DomainsPath = "Script/Domains";

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using Rino.GameFramework.DDDCore;
+﻿using System.Collections.Generic;
+using Sumorin.GameFramework.DDDCore;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff Repository 實作

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
 	/// <summary>
 	///     Repository 實作，提供 Entity 的記憶體儲存

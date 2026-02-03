@@ -1,8 +1,8 @@
-#if ZENJECT
+﻿#if ZENJECT
 using MessagePipe;
 using Zenject;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// MessagePipe 擴展方法，簡化 Event 註冊

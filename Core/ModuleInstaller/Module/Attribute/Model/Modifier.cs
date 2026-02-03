@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.AttributeSystem
+﻿namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 修改器，用於改變屬性值

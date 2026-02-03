@@ -1,10 +1,10 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// 刪除資料確認彈出視窗

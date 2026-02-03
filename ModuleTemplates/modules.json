@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "baseUrl": "https://raw.githubusercontent.com/rino3390/RinoGameFramework/main/",
+  "baseUrl": "https://raw.githubusercontent.com/rino3390/SumorinGameFramework/main/",
   "modules": [
     {
       "id": "folder-structure",

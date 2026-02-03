@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.GameManagerBase
+﻿namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// Odin Inspector 佈局常數定義

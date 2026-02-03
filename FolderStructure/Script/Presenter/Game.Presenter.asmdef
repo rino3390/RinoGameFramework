@@ -1,8 +1,8 @@
-{
+﻿{
   "name": "Game.Presenter",
   "rootNamespace": "Game.Presenter",
   "references": [
-    "Rino.DDDCore",
+    "Sumorin.DDDCore",
     "Game.View"
   ],
   "includePlatforms": [],

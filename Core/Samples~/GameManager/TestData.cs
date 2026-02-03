@@ -1,8 +1,8 @@
-using Rino.GameFramework.GameManagerBase;
+﻿using Sumorin.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Rino.GameFramework.Sample.GameManager
+namespace Sumorin.GameFramework.Sample.GameManager
 {
     /// <summary>
     /// 測試用資料類別

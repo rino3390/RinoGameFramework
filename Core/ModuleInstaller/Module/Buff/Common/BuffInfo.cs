@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.BuffSystem
+﻿namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff 資訊結構，用於 Controller Observable 通知 Presenter 更新 UI

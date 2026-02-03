@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Rino.GameFramework.DDDCore
+namespace Sumorin.GameFramework.DDDCore
 {
     /// <summary>
     /// Domain Entity 抽象基底類別，只提供 Id 屬性

@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.AttributeSystem
+﻿namespace Sumorin.GameFramework.AttributeSystem
 {
     /// <summary>
     /// 修改器類型，定義數值的計算方式

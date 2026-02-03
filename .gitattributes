@@ -1,0 +1,2 @@
+# Source Generator 自動生成的檔案，統一使用 CRLF（Windows 環境）
+*.g.cs text eol=crlf

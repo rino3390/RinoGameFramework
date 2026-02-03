@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using UniRx;
 
-namespace Rino.GameFramework.AttributeSystem.Tests
+namespace Sumorin.GameFramework.AttributeSystem.Tests
 {
     [TestFixture]
     public class AttributeControllerTests
@@ -18,12 +18,12 @@ namespace Rino.GameFramework.AttributeSystem.Tests
 
             var configs = new List<AttributeConfig>
             {
-                new() { AttributeName = "Health", Min = 0, Max = 999 },
-                new() { AttributeName = "Attack", Min = 0, Max = 999 },
-                new() { AttributeName = "MaxHealth", Min = 1, Max = 9999 },
-                new() { AttributeName = "Shield", Min = 0, Max = 9999 },
-                new() { AttributeName = "MinShield", Min = 0, Max = 9999 },
-                new() { AttributeName = "CritRate", Min = 0, Max = 100, Ratio = 100 }
+                new() { Id = "Health", Min = 0, Max = 999 },
+                new() { Id = "Attack", Min = 0, Max = 999 },
+                new() { Id = "MaxHealth", Min = 1, Max = 9999 },
+                new() { Id = "Shield", Min = 0, Max = 9999 },
+                new() { Id = "MinShield", Min = 0, Max = 9999 },
+                new() { Id = "CritRate", Min = 0, Max = 100, Ratio = 100 }
             };
             controller.RegisterConfigs(configs);
         }
@@ -179,8 +179,8 @@ namespace Rino.GameFramework.AttributeSystem.Tests
         {
             var configs = new List<AttributeConfig>
             {
-                new() { AttributeName = "Health", Min = 0, Max = 9999, RelationMax = "MaxHealth" },
-                new() { AttributeName = "MaxHealth", Min = 1, Max = 9999 }
+                new() { Id = "Health", Min = 0, Max = 9999, RelationMax = "MaxHealth" },
+                new() { Id = "MaxHealth", Min = 1, Max = 9999 }
             };
             controller.RegisterConfigs(configs);
 
@@ -197,8 +197,8 @@ namespace Rino.GameFramework.AttributeSystem.Tests
         {
             var configs = new List<AttributeConfig>
             {
-                new() { AttributeName = "Shield", Min = 0, Max = 9999, RelationMin = "MinShield" },
-                new() { AttributeName = "MinShield", Min = 0, Max = 9999 }
+                new() { Id = "Shield", Min = 0, Max = 9999, RelationMin = "MinShield" },
+                new() { Id = "MinShield", Min = 0, Max = 9999 }
             };
             controller.RegisterConfigs(configs);
 
@@ -328,7 +328,7 @@ namespace Rino.GameFramework.AttributeSystem.Tests
         {
             var configs = new List<AttributeConfig>
             {
-                new() { AttributeName = "Unlimited", Min = int.MinValue, Max = int.MaxValue }
+                new() { Id = "Unlimited", Min = int.MinValue, Max = int.MaxValue }
             };
             controller.RegisterConfigs(configs);
 

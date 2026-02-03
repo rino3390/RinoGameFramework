@@ -1,12 +1,12 @@
-using Rino.GameFramework.RinoUtility;
-using Rino.GameFramework.RinoUtility.Editor;
+﻿using Sumorin.GameFramework.SumorinUtility;
+using Sumorin.GameFramework.SumorinUtility.Editor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System.Linq;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// 建立新資料的 Editor 視窗基底類別
@@ -61,7 +61,7 @@ namespace Rino.GameFramework.GameManagerBase
         {
             SetNewData();
 
-            dataSet = RinoEditorUtility.FindAssetWithInheritance<DataSet<T>>();
+            dataSet = SumorinEditorUtility.FindAssetWithInheritance<DataSet<T>>();
 
             if (dataSet == null)
             {
@@ -97,7 +97,7 @@ namespace Rino.GameFramework.GameManagerBase
         private void CreateNewData()
         {
             if (!Data.IsDataLegal()) return;
-            RinoEditorUtility.CreateSOData(Data, DataRootPath + Data.AssetName);
+            SumorinEditorUtility.CreateSOData(Data, DataRootPath + Data.AssetName);
             SetNewData();
             ForceMenuTreeRebuild();
         }
@@ -112,7 +112,7 @@ namespace Rino.GameFramework.GameManagerBase
 
         private void CreateDataSet()
         {
-            var dataSetType = RinoEditorUtility.GetDerivedClasses<DataSet<T>>().First();
+            var dataSetType = SumorinEditorUtility.GetDerivedClasses<DataSet<T>>().First();
 
             if (dataSetType == null)
             {
@@ -120,7 +120,7 @@ namespace Rino.GameFramework.GameManagerBase
             }
 
             var newDataSet = ScriptableObject.CreateInstance(dataSetType);
-            RinoEditorUtility.CreateSOData(newDataSet, "Data/Set/" + typeof(T).Name + "DataSet");
+            SumorinEditorUtility.CreateSOData(newDataSet, "Data/Set/" + typeof(T).Name + "DataSet");
             dataSet = (DataSet<T>)newDataSet;
             ForceMenuTreeRebuild();
         }

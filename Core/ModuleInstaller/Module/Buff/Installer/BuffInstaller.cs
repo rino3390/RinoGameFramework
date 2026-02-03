@@ -1,6 +1,6 @@
-using Zenject;
+﻿using Zenject;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 系統的 Zenject Installer

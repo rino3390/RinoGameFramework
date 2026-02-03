@@ -1,4 +1,4 @@
-namespace Rino.GameFramework.BuffSystem
+﻿namespace Sumorin.GameFramework.BuffSystem
 {
     /// <summary>
     /// Buff 堆疊變化資訊，用於 Model Observable 通知 Controller 狀態變化

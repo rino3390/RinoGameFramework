@@ -1,0 +1,18 @@
+﻿{
+    "name": "Sumorin.SOBase",
+    "rootNamespace": "Sumorin.GameFramework.GameManagerBase",
+    "references": [
+        "Sumorin.SumorinUtility",
+        "Sumorin.SumorinUtility.Editor",
+        "Unity.Localization"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.BuffSystem
+namespace Sumorin.GameFramework.BuffSystem
 {
 	/// <summary>
 	/// Buff Controller 介面（資源型）

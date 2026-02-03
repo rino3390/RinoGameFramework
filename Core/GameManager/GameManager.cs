@@ -1,12 +1,17 @@
-using Rino.GameFramework.GameManagerBase;
-using Rino.GameFramework.RinoUtility.Editor;
+﻿using Sumorin.GameFramework.GameManagerBase;
+using Sumorin.GameFramework.SumorinUtility.Editor;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Sumorin.GameFramework.Localization.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
     /// <summary>
     /// 遊戲管理主視窗
@@ -18,6 +23,7 @@ namespace Rino.GameFramework.GameManager
 
         private GameEditorMenuBase menu;
         private bool needsMenuRebuild;
+        private readonly Dictionary<Type, GameEditorMenuBase> menuCache = new();
 
         /// <summary>
         /// 開啟 GameManager 視窗
@@ -34,12 +40,12 @@ namespace Rino.GameFramework.GameManager
         /// </summary>
         protected override void Initialize()
         {
-            tabSetting = RinoEditorUtility.FindAsset<GameManagerTabSetting>();
+            tabSetting = SumorinEditorUtility.FindAsset<GameManagerTabSetting>();
 
             if (tabSetting == null)
             {
                 var data = CreateInstance<GameManagerTabSetting>();
-                RinoEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
+                SumorinEditorUtility.CreateSOData(data, "Data/GameManager/Tab");
                 tabSetting = data;
             }
 
@@ -51,6 +57,8 @@ namespace Rino.GameFramework.GameManager
         /// </summary>
         protected override void OnImGUI()
         {
+            DrawToolbar();
+
             if (menu == null)
             {
                 TrySetFirstValidMenu();
@@ -59,11 +67,12 @@ namespace Rino.GameFramework.GameManager
             if (menu != null)
             {
                 DrawWindowTab();
-                MenuWidth = menu.MenuWidth;
+                MenuWidth = menu.HasMenuTree ? menu.MenuWidth : 0;
 
                 if (needsMenuRebuild)
                 {
                     needsMenuRebuild = false;
+					menu.ForceMenuTreeRebuild();
                     ForceMenuTreeRebuild();
                 }
             }
@@ -71,7 +80,20 @@ namespace Rino.GameFramework.GameManager
             base.OnImGUI();
         }
 
-        /// <summary>
+        private void DrawToolbar()
+        {
+            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUILayout.FlexibleSpace();
+
+            if (SumorinEditorUtility.ToolbarButtonWithIcon("多語系設定", SdfIconType.Translate))
+            {
+                SumorinLocalizationEditorWindow.OpenFromMenu();
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+		/// <summary>
         /// 建立選單樹
         /// </summary>
         /// <returns>選單樹</returns>
@@ -79,52 +101,56 @@ namespace Rino.GameFramework.GameManager
         {
             if (menu == null)
             {
-                var tree = new OdinMenuTree();
-                tree.Add("頁籤設定", tabSetting);
-                return tree;
+                var tree = new OdinMenuTree { { "頁籤設定", tabSetting } };
+				return tree;
             }
 
             menu.EnsureInitialized();
             return menu.MenuTree;
         }
 
-        private void TrySetFirstValidMenu()
+		private void TrySetFirstValidMenu()
         {
             if (tabSetting == null) return;
 
-            foreach (var tab in tabSetting.Tabs)
+            var tab = tabSetting.Tabs.FirstOrDefault(t => t.CorrespondingWindowType != null);
+            if (tab != null)
             {
-                if (tab.CorrespondingWindow != null)
-                {
-                    SetCurrentMenu(tab.CorrespondingWindow);
-                    ForceMenuTreeRebuild();
-                    return;
-                }
+                SwitchMenu(tab.CorrespondingWindowType);
             }
         }
 
-        private void SwitchMenu(GameEditorMenuBase newMenu)
+		private void SwitchMenu(Type windowType)
         {
+            if (windowType == null) return;
+
+            var newMenu = GetOrCreateMenu(windowType);
             if (newMenu == null || menu == newMenu) return;
-
-            SetCurrentMenu(newMenu);
-            needsMenuRebuild = true;
-        }
-
-        private void SetCurrentMenu(GameEditorMenuBase newMenu)
-        {
-            if (newMenu == null) return;
 
             menu = newMenu;
             menu.EnsureInitialized();
+            needsMenuRebuild = true;
         }
 
-        private void DrawWindowTab()
+		private GameEditorMenuBase GetOrCreateMenu(Type windowType)
+        {
+            if (windowType == null) return null;
+
+            if (!menuCache.TryGetValue(windowType, out var cachedMenu))
+            {
+                cachedMenu = Activator.CreateInstance(windowType) as GameEditorMenuBase;
+                menuCache[windowType] = cachedMenu;
+            }
+
+            return cachedMenu;
+        }
+
+		private void DrawWindowTab()
         {
             var buttonCount = 0;
             EditorGUILayout.BeginHorizontal();
 
-            foreach (var tab in tabSetting.Tabs)
+            foreach (var tab in tabSetting.Tabs.Where(t => t.CorrespondingWindowType != null))
             {
                 if (buttonCount >= MaxButtonsPerRow)
                 {
@@ -133,11 +159,12 @@ namespace Rino.GameFramework.GameManager
                     buttonCount = 0;
                 }
 
+                var tabMenu = GetOrCreateMenu(tab.CorrespondingWindowType);
                 EditorGUILayout.BeginVertical(GUILayout.MaxHeight(30));
 
-                if (SirenixEditorGUI.SDFIconButton(tab.CorrespondingWindow.TabName, 5f, tab.TabIcon))
+                if (SirenixEditorGUI.SDFIconButton(tabMenu.TabName, 5f, tab.TabIcon))
                 {
-                    SwitchMenu(tab.CorrespondingWindow);
+                    SwitchMenu(tab.CorrespondingWindowType);
                 }
 
                 EditorGUILayout.EndVertical();
@@ -146,5 +173,5 @@ namespace Rino.GameFramework.GameManager
 
             EditorGUILayout.EndHorizontal();
         }
-    }
+	}
 }

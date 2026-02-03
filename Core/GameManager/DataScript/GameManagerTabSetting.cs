@@ -1,7 +1,7 @@
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using System.Collections.Generic;
 
-namespace Rino.GameFramework.GameManager
+namespace Sumorin.GameFramework.GameManager
 {
     /// <summary>
     /// GameManager 頁籤設定

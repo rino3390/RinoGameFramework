@@ -1,9 +1,9 @@
-using Sirenix.OdinInspector.Editor;
+﻿using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace Rino.GameFramework.GameManagerBase
+namespace Sumorin.GameFramework.GameManagerBase
 {
     /// <summary>
     /// OdinMenuTree 擴充方法
