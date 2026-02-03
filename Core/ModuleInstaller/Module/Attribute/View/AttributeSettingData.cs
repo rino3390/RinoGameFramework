@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 
 namespace Rino.GameFramework.AttributeSystem
 {
@@ -9,15 +8,14 @@ namespace Rino.GameFramework.AttributeSystem
 	/// </summary>
 	public class AttributeSettingData: SerializedScriptableObject
 	{
-		[OdinSerialize]
-		[ListDrawerSettings(DraggableItems = true, ShowFoldout = false, CustomAddFunction = nameof(CreateDefaultAttribute))]
+		[ListDrawerSettings(DraggableItems = true, CustomAddFunction = nameof(CreateDefaultAttribute))]
 		[LabelText("屬性列表", Icon = SdfIconType.DropletHalf)]
 		public List<AttributeConfig> Attributes = new();
 
 		private AttributeConfig CreateDefaultAttribute() =>
 			new()
 			{
-				AttributeName = "",
+				Id = "",
 				Min = 0,
 				Max = 999999999,
 				RelationMax = "",
