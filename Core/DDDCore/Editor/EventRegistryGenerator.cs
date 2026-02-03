@@ -59,9 +59,10 @@ namespace Sumorin.GameFramework.DDDCore.Editor
 					Directory.CreateDirectory(directory);
 				}
 
-				var existingContent = File.Exists(outputPath) ? File.ReadAllText(outputPath) : string.Empty;
+				var existingContent = File.Exists(outputPath) ? NormalizeContent(File.ReadAllText(outputPath)) : string.Empty;
+				var normalizedCode = NormalizeContent(code);
 
-				if(existingContent != code)
+				if(existingContent != normalizedCode)
 				{
 					File.WriteAllText(outputPath, code);
 					generatedCount++;
@@ -110,6 +111,20 @@ namespace Sumorin.GameFramework.DDDCore.Editor
 			if(string.IsNullOrEmpty(input)) return input;
 
 			return char.ToUpper(input[0]) + input.Substring(1);
+		}
+
+		private static string NormalizeContent(string content)
+		{
+			if(string.IsNullOrEmpty(content)) return content;
+
+			// 移除 UTF-8 BOM
+			if(content.Length > 0 && content[0] == '\uFEFF')
+			{
+				content = content.Substring(1);
+			}
+
+			// 統一換行符為 LF
+			return content.Replace("\r\n", "\n").Replace("\r", "\n");
 		}
 
 		private static string GenerateCode(string className, List<Type> eventTypes)
