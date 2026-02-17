@@ -4,11 +4,7 @@
     "references": [
         "Sumorin.DDDCore",
         "Sumorin.TestFramework",
-        "Sumorin.AttributeSystem.Common",
-        "Sumorin.AttributeSystem.Model",
-        "Sumorin.AttributeSystem.Controller",
-        "Sumorin.AttributeSystem.Repository",
-        "Sumorin.AttributeSystem.Installer",
+        "Sumorin.AttributeSystem",
         "Sumorin.SumorinUtility",
         "UniRx",
         "Zenject",

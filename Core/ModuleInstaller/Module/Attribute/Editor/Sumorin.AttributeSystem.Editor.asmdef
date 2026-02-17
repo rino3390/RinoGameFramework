@@ -2,8 +2,7 @@
   "name": "Sumorin.AttributeSystem.Editor",
   "rootNamespace": "Sumorin.GameFramework.AttributeSystem",
   "references": [
-    "Sumorin.AttributeSystem.Common",
-    "Sumorin.AttributeSystem.DataScript",
+    "Sumorin.AttributeSystem",
     "Sumorin.GameManager.Base",
     "Sumorin.SumorinUtility.Editor"
   ],
