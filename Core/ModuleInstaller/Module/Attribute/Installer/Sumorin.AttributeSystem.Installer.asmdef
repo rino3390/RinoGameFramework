@@ -1,8 +1,8 @@
-﻿{
+{
     "name": "Sumorin.AttributeSystem.Installer",
     "rootNamespace": "Sumorin.GameFramework.AttributeSystem",
     "references": [
-        "Sumorin.DDDCore.Domain",
+        "Sumorin.DDDCore",
         "Sumorin.AttributeSystem.Controller",
         "Sumorin.AttributeSystem.Repository",
         "Zenject"

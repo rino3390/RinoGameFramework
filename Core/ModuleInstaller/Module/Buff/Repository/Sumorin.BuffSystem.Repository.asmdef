@@ -1,9 +1,9 @@
-﻿{
+{
     "name": "Sumorin.BuffSystem.Repository",
     "rootNamespace": "Sumorin.GameFramework.BuffSystem",
     "references": [
         "Sumorin.BuffSystem.Model",
-        "Sumorin.DDDCore.Domain"
+        "Sumorin.DDDCore"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

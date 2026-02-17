@@ -1,8 +1,8 @@
-﻿{
+{
     "name": "Sumorin.BuffSystem.Event",
     "rootNamespace": "Sumorin.GameFramework.BuffSystem",
     "references": [
-        "Sumorin.DDDCore.CoreEvent",
+        "Sumorin.DDDCore",
         "Sumorin.BuffSystem.Model"
     ],
     "includePlatforms": [],

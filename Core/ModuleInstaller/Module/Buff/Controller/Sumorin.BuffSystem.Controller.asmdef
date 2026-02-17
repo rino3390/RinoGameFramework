@@ -1,11 +1,8 @@
-﻿{
+{
     "name": "Sumorin.BuffSystem.Controller",
     "rootNamespace": "Sumorin.GameFramework.BuffSystem",
     "references": [
-        "Sumorin.DDDCore.Domain",
-        "Sumorin.DDDCore.CoreEvent",
-        "Sumorin.DDDCore.EventBus",
-        "Sumorin.DDDCore.Publisher",
+        "Sumorin.DDDCore",
         "Sumorin.BuffSystem.Common",
         "Sumorin.BuffSystem.Model",
         "Sumorin.BuffSystem.Repository",

@@ -1,8 +1,8 @@
-﻿{
+{
     "name": "Sumorin.BuffSystem.Installer",
     "rootNamespace": "Sumorin.GameFramework.BuffSystem",
     "references": [
-        "Sumorin.DDDCore.Domain",
+        "Sumorin.DDDCore",
         "Sumorin.BuffSystem.Controller",
         "Sumorin.BuffSystem.Repository",
         "Zenject"
