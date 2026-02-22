@@ -37,7 +37,7 @@
       "description": "屬性系統模組，提供角色屬性（如生命值、攻擊力）的管理與修飾器功能",
       "version": "1.0.0",
       "dependencies": [],
-      "folders": ["Core/ModuleInstaller/Module/Attribute"],
+      "folders": ["ModuleTemplates/Attribute"],
       "files": []
     },
     {
@@ -46,7 +46,7 @@
       "description": "Buff 系統模組，提供 Buff 的生命週期管理、堆疊行為、互斥群組與屬性效果應用",
       "version": "1.0.0",
       "dependencies": ["attribute-system"],
-      "folders": ["Core/ModuleInstaller/Module/Buff"],
+      "folders": ["ModuleTemplates/Buff"],
       "files": []
     }
   ]
