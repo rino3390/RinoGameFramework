@@ -298,17 +298,25 @@ namespace Sumorin.GameFramework.ModuleInstaller
 
             // 使用 GetAllFiles() 取得所有檔案（包含從 folders 展開的）
             var allFiles = module.GetAllFiles();
-            foreach (var file in allFiles)
+            if (allFiles.Count > 0)
             {
-                var localPath = GetLocalFilePath(file, module.Info.installPath);
-                if (File.Exists(localPath))
+                foreach (var file in allFiles)
                 {
-                    module.InstalledFiles.Add(file);
+                    var localPath = GetLocalFilePath(file, module.Info.installPath);
+                    if (File.Exists(localPath))
+                    {
+                        module.InstalledFiles.Add(file);
+                    }
+                    else
+                    {
+                        module.MissingFiles.Add(file);
+                    }
                 }
-                else
-                {
-                    module.MissingFiles.Add(file);
-                }
+            }
+            else if (module.Info.folders.Count > 0)
+            {
+                // folders 尚未從 GitHub 解析，改掃描本地安裝目錄
+                ScanLocalInstalledFiles(module);
             }
 
             if (module.InstalledFiles.Count == 0)
@@ -367,6 +375,39 @@ namespace Sumorin.GameFramework.ModuleInstaller
             else
             {
                 module.Status = ModuleInstallStatus.PartiallyInstalled;
+            }
+        }
+
+        /// <summary>
+        /// 掃描本地安裝目錄，偵測已安裝的模組檔案
+        /// 用於 folders 尚未從 GitHub 解析時的狀態檢查
+        /// </summary>
+        private void ScanLocalInstalledFiles(ModuleRuntimeData module)
+        {
+            foreach (var folder in module.Info.folders)
+            {
+                if (!folder.StartsWith(ModuleTemplatesPrefix))
+                    continue;
+
+                var modulePath = folder.Substring(ModuleTemplatesPrefix.Length);
+                var basePath = !string.IsNullOrEmpty(module.Info.installPath)
+                    ? module.Info.installPath
+                    : IsFolderStructureInstalled() ? DomainsPath : ScriptPath;
+                var localDir = Path.Combine(Application.dataPath, basePath, modulePath).Replace("\\", "/");
+
+                if (!Directory.Exists(localDir))
+                    continue;
+
+                var baseDir = Path.Combine(Application.dataPath, basePath).Replace("\\", "/") + "/";
+                var files = Directory.GetFiles(localDir, "*", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    if (file.EndsWith(".meta"))
+                        continue;
+
+                    var relativeToBase = file.Replace("\\", "/").Substring(baseDir.Length);
+                    module.InstalledFiles.Add(ModuleTemplatesPrefix + relativeToBase);
+                }
             }
         }
 

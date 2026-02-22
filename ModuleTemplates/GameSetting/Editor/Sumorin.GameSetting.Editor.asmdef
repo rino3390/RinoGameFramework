@@ -1,12 +1,9 @@
-﻿{
+{
     "name": "Sumorin.GameSetting.Editor",
     "rootNamespace": "Sumorin.GameFramework.GameSetting",
     "references": [
         "Sumorin.GameManager.Base",
-        "Sumorin.SumorinUtility.Editor",
-        "Sirenix.Serialization.Config",
-        "Sirenix.Serialization",
-        "Sirenix.Utilities"
+        "Sumorin.SumorinUtility.Editor"
     ],
     "includePlatforms": [
         "Editor"
