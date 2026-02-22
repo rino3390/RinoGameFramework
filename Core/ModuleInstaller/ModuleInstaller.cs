@@ -300,7 +300,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
             var allFiles = module.GetAllFiles();
             foreach (var file in allFiles)
             {
-                var localPath = GetLocalFilePath(file);
+                var localPath = GetLocalFilePath(file, module.Info.installPath);
                 if (File.Exists(localPath))
                 {
                     module.InstalledFiles.Add(file);
@@ -370,7 +370,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
             }
         }
 
-        private string GetLocalFilePath(string relativePath)
+        private string GetLocalFilePath(string relativePath, string installPath = null)
         {
             // FolderStructure 檔案：移除前綴，安裝到 Assets/
             if (relativePath.StartsWith(FolderStructurePrefix))
@@ -379,11 +379,13 @@ namespace Sumorin.GameFramework.ModuleInstaller
                 return Path.Combine(Application.dataPath, localPath).Replace("\\", "/");
             }
 
-            // ModuleTemplates 檔案：移除前綴，根據 FolderStructure 是否存在決定路徑
+            // ModuleTemplates 檔案：移除前綴，根據 installPath 或 FolderStructure 決定路徑
             if (relativePath.StartsWith(ModuleTemplatesPrefix))
             {
                 var modulePath = relativePath.Substring(ModuleTemplatesPrefix.Length);
-                var basePath = IsFolderStructureInstalled() ? DomainsPath : ScriptPath;
+                var basePath = !string.IsNullOrEmpty(installPath)
+                    ? installPath
+                    : IsFolderStructureInstalled() ? DomainsPath : ScriptPath;
                 return Path.Combine(Application.dataPath, basePath, modulePath).Replace("\\", "/");
             }
 
@@ -499,7 +501,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
             foreach (var file in files)
             {
                 var url = GetRemoteFileUrl(file);
-                var localPath = GetLocalFilePath(file);
+                var localPath = GetLocalFilePath(file, module.Info.installPath);
 
                 try
                 {
@@ -620,7 +622,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
                 // 刪除檔案
                 foreach (var file in module.InstalledFiles)
                 {
-                    var localPath = GetLocalFilePath(file);
+                    var localPath = GetLocalFilePath(file, module.Info.installPath);
                     if (File.Exists(localPath))
                     {
                         File.Delete(localPath);
@@ -739,7 +741,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
         {
             // 找出模組的根目錄（Domain 資料夾）
             var directories = module.GetAllFiles()
-                .Select(f => Path.GetDirectoryName(GetLocalFilePath(f)))
+                .Select(f => Path.GetDirectoryName(GetLocalFilePath(f, module.Info.installPath)))
                 .Where(d => !string.IsNullOrEmpty(d))
                 .Distinct()
                 .OrderByDescending(d => d.Length) // 從最深的目錄開始

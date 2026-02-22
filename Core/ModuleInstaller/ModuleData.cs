@@ -35,6 +35,7 @@ namespace Sumorin.GameFramework.ModuleInstaller
         public string description;
         public string version;
         public List<string> dependencies = new();
+        public string installPath;
         public List<string> folders = new();
         public List<string> files = new();
     }
