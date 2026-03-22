@@ -4,30 +4,23 @@ using Sirenix.OdinInspector;
 namespace Sumorin.GameFramework.AttributeSystem
 {
 	/// <summary>
-	/// 屬性修改效果資訊，描述如何修改一個屬性
+	/// 屬性初始值，供其他 Domain 設定初始屬性使用
 	/// </summary>
 	[Serializable]
-	public struct ModifyEffectInfo
+	public struct AttributeValue
 	{
 		/// <summary>
 		/// 目標屬性名稱
 		/// </summary>
-		[LabelText("目標屬性")]
+		[LabelText("屬性")]
 		[Required]
 		[ValueDropdown("@Sumorin.GameFramework.AttributeSystem.AttributeDropdownProvider.GetAttributeNames()")]
 		public string AttributeName;
 
 		/// <summary>
-		/// 修改類型
+		/// 基礎值
 		/// </summary>
-		[LabelText("修改類型")]
-		public ModifyType ModifyType;
-
-		/// <summary>
-		/// 修改數值
-		/// </summary>
-		[LabelText("數值")]
-		[Required]
-		public int Value;
+		[LabelText("基礎值")]
+		public int BaseValue;
 	}
 }

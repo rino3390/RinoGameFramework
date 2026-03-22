@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Sumorin.GameFramework.AttributeSystem;
 using Sumorin.GameFramework.GameManagerBase;
 using Sirenix.OdinInspector;
@@ -47,7 +46,7 @@ namespace Sumorin.GameFramework.BuffSystem
 		public int Priority;
 
 		[LabelText("效果")]
-		public List<BuffEffectData> Effects;
+		public List<ModifyEffectInfo> Effects;
 
 		/// <summary>
 		/// 轉換為 BuffConfig
@@ -64,7 +63,7 @@ namespace Sumorin.GameFramework.BuffSystem
 				MaxStack = StackBehavior == StackBehavior.IncreaseStack ? MaxStack : -1,
 				MutualExclusionGroup = MutualExclusionGroup,
 				Priority = Priority,
-				Effects = Effects?.Select(e => e.ToConfig()).ToList() ?? new List<ModifyEffectInfo>()
+				Effects = Effects ?? new List<ModifyEffectInfo>()
 			};
 		}
 
